@@ -1,0 +1,14 @@
+Handelsregister-Update {{ region.name }} ({{ stand }})
+{{ region.radius_km|round|int }} km um {{ region.mittelpunkt }} – {{ events|length }} neue Einträge (SHK & Elektro)
+{% if modus == 'link' %}
+{% for g, typen in GROUPS.items() %}{% set n = events|selectattr('typ', 'in', typen)|list|length %}{% if n %}{{ g }}: {{ n }}
+{% endif %}{% endfor %}
+{% else %}
+{% for e in events %}
+- [{{ EVENT_TYPES.get(e.typ, e.typ) }}{% if e.unterart %}: {{ e.unterart }}{% endif %}] {{ e.firma }}
+  {{ e.datum|de_date }} · {{ e.ort }} · AG {{ e.gericht }} {{ e.register }} · {{ e.branchen|join(', ') }}
+{% if e.gegenstand %}  Gegenstand: {{ e.gegenstand|truncate(200) }}
+{% endif %}{% if e.text %}  {{ e.text|truncate(250) }}
+{% endif %}{% endfor %}
+{% endif %}
+Alle Einträge: {{ link }}

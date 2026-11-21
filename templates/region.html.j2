@@ -1,0 +1,44 @@
+{% extends "base.html.j2" %}
+{% block title %}{{ region.name }} – {{ cfg.get('site_title') }}{% endblock %}
+{% block heading %}{{ region.name }} <span style="font-weight:400;color:var(--muted)">· {{ region.radius_km|round|int }} km um {{ region.mittelpunkt }}</span>{% endblock %}
+{% block content %}
+<div class="tiles">
+  {% for g, n in stats.items() %}
+  <div class="tile"><div class="n">{{ n }}</div><div class="l">{{ g }}</div></div>
+  {% endfor %}
+  <div class="tile"><div class="n">{{ events|length }}</div><div class="l">Gesamt ({{ cfg.get('anzeige_tage', 120) }} Tage)</div></div>
+</div>
+
+<div class="filters">
+  <input id="q" type="search" placeholder="Suche nach Firma, Ort, HRB, Text …">
+  <select id="gruppe"><option value="">Alle Ereignisse</option>{% for g in GROUPS %}<option>{{ g }}</option>{% endfor %}</select>
+  <select id="branche"><option value="">Alle Branchen</option>{% for b in cfg.get('branchen', {}) %}<option>{{ b }}</option>{% endfor %}</select>
+  <span class="meta" id="count"></span>
+</div>
+
+<div id="list">
+{% for e in events %}{% include "_event.html.j2" %}{% else %}
+<div class="empty">Noch keine Ereignisse für diese Region erfasst.</div>
+{% endfor %}
+</div>
+
+<script>
+(function () {
+  var q = document.getElementById('q'), g = document.getElementById('gruppe'),
+      b = document.getElementById('branche'), c = document.getElementById('count'),
+      cards = Array.prototype.slice.call(document.querySelectorAll('#list .card'));
+  function apply() {
+    var s = q.value.trim().toLowerCase(), n = 0;
+    cards.forEach(function (el) {
+      var ok = (!s || el.dataset.search.indexOf(s) >= 0) &&
+               (!g.value || el.dataset.gruppe === g.value) &&
+               (!b.value || (' ' + el.dataset.branchen + ' ').indexOf(' ' + b.value + ' ') >= 0);
+      el.style.display = ok ? '' : 'none'; if (ok) n++;
+    });
+    c.textContent = n + ' von ' + cards.length + ' Einträgen';
+  }
+  [q, g, b].forEach(function (el) { el.addEventListener('input', apply); });
+  apply();
+})();
+</script>
+{% endblock %}

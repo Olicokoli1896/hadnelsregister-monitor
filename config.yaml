@@ -1,0 +1,100 @@
+# ---------------------------------------------------------------------------
+# Konfiguration des Handelsregister-Monitors (SHK- und Elektrohandwerk)
+# ---------------------------------------------------------------------------
+
+# Öffentliche Adresse der generierten Website (z. B. GitHub Pages).
+# Wird für die Links in den E-Mails verwendet.
+site_url: "https://olicokoli.github.io/Recherche-Handelsregister/"
+site_title: "Handelsregister-Monitor SHK & Elektro"
+
+# Namen natürlicher Personen (Geschäftsführer, Inhaber) auf Website und in Mails
+# anzeigen? Die Website ist (bei GitHub Pages) öffentlich – daher standardmäßig aus.
+personen_namen_anzeigen: false
+
+# Wie viele Tage rückwirkend Ereignisse auf der Website angezeigt werden
+anzeige_tage: 120
+
+# ---------------------------------------------------------------------------
+# Regionen: Mittelpunkt (Stadt oder PLZ) + Radius in km.
+# Jede Region bekommt eine eigene Übersichtsseite und eine eigene Verteilerliste.
+#   registergerichte: optional. Leer lassen = automatisch aus den
+#   Registerbekanntmachungen ermitteln (alle Gerichte mit Firmensitzen im Radius).
+# ---------------------------------------------------------------------------
+regionen:
+  - name: "Kassel"
+    mittelpunkt: "Kassel"
+    radius_km: 40
+    registergerichte: [Kassel, Fritzlar, Korbach, Eschwege, Göttingen]
+    empfaenger:
+      - "vertrieb-nordhessen@example.com"
+
+  # Beispiel für eine zweite Region:
+  # - name: "Frankfurt"
+  #   mittelpunkt: "60311"
+  #   radius_km: 30
+  #   empfaenger: ["team-rhein-main@example.com"]
+
+# ---------------------------------------------------------------------------
+# Branchenzuordnung. Ein Unternehmen gilt als SHK bzw. Elektro, wenn
+# Firmenname oder Unternehmensgegenstand einen der Begriffe enthält
+# (Groß-/Kleinschreibung egal, Teilwort-Treffer). Ausschlussbegriffe werden vorher
+# aus dem Text entfernt ("Elektronik" zählt also nicht als "Elektro").
+# ---------------------------------------------------------------------------
+branchen:
+  SHK:
+    begriffe: [sanitär, sanitaer, heizung, heizungs, klima, lüftung, lueftung,
+               haustechnik, gebäudetechnik, gebaeudetechnik, versorgungstechnik,
+               installateur, wasserinstallation, gas- und wasser, gas-wasser,
+               wärmepumpe, waermepumpe, solarthermie, kältetechnik, kaeltetechnik,
+               klempner, flaschner, spengler, rohrleitungsbau, shk, bäderbau, badsanierung,
+               energietechnik]
+    ausschluss: [klimaschutz, klimaneutral]
+  Elektro:
+    begriffe: [elektro, elektrik, elektriker, e-technik, photovoltaik, pv-anlagen,
+               solaranlagen, blitzschutz, schaltanlagen, kabelbau, smart home,
+               lichttechnik, sicherheitstechnik, netzwerktechnik, ladeinfrastruktur,
+               wallbox]
+    ausschluss: [elektronik, elektronisch, elektromobil]
+
+# Suchbegriffe für die Handelsregister-Unternehmenssuche (Firmenname, * = Platzhalter)
+suchbegriffe_register: ["Elektro*", "Sanitär*", "Heizung*", "Haustechnik*",
+                        "Gebäudetechnik*", "Klima*", "Photovoltaik*", "Solar*",
+                        "Installation*", "Energietechnik*", "SHK"]
+
+# Suchbegriffe für insolvenzbekanntmachungen.de (Firmenname, * = Platzhalter)
+suchbegriffe_insolvenz: ["*Elektro*", "*Sanitär*", "*Heizung*", "*Haustechnik*",
+                         "*Gebäudetechnik*", "*Klima*", "*Solar*", "*Installation*"]
+
+# ---------------------------------------------------------------------------
+# Quellen und Abruflimits
+# ---------------------------------------------------------------------------
+quellen:
+  bekanntmachungen: true      # Registerbekanntmachungen (handelsregister.de)
+  unternehmenssuche: true     # Neueintragungen / Umfirmierungen (handelsregister.de)
+  insolvenz: true             # insolvenzbekanntmachungen.de
+
+# Nutzungsbedingungen handelsregister.de: max. 60 Abrufe pro Stunde.
+handelsregister:
+  sekunden_zwischen_abrufen: 62
+  max_abrufe_pro_lauf: 55
+
+insolvenz:
+  sekunden_zwischen_abrufen: 4
+  tage_rueckwirkend: 14
+  # Verfahrensabschnitte, mit denen die Art einer neuen Bekanntmachung bestimmt wird
+  gegenstaende: [EROEFF, SICHMASS, ABWMASS, ENT_VERF]
+  # Nur Unternehmen mit Registereintrag (keine Privatpersonen / Einzelunternehmer ohne HR)
+  nur_mit_registereintrag: true
+  # Insolvenzdaten nach X Tagen aus der Anzeige entfernen (Datenschutz)
+  aufbewahrung_tage: 180
+
+# ---------------------------------------------------------------------------
+# E-Mail-Versand (Zugangsdaten kommen aus Umgebungsvariablen / GitHub Secrets):
+#   SMTP_HOST, SMTP_PORT, SMTP_USER, SMTP_PASSWORD, MAIL_FROM
+# ---------------------------------------------------------------------------
+email:
+  aktiv: true
+  # "text" = Ereignisse direkt in der Mail, "link" = nur Zusammenfassung + Link
+  modus: "text"
+  betreff: "Handelsregister-Update {region}: {anzahl} neue Einträge"
+  nur_bei_neuen_eintraegen: true

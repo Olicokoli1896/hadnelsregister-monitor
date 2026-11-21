@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="de"><head><meta charset="utf-8"></head>
+<body style="margin:0;padding:0;background:#f5f6f8;font-family:Arial,Helvetica,sans-serif;color:#1d2330;">
+<table width="100%" cellpadding="0" cellspacing="0" style="background:#f5f6f8;"><tr><td align="center" style="padding:20px 10px;">
+<table width="640" cellpadding="0" cellspacing="0" style="max-width:640px;background:#ffffff;border:1px solid #e1e4ea;border-radius:8px;">
+  <tr><td style="padding:20px 24px;border-bottom:1px solid #e1e4ea;">
+    <div style="font-size:18px;font-weight:bold;">Handelsregister-Update {{ region.name }}</div>
+    <div style="font-size:13px;color:#5d6677;">{{ stand }} · {{ region.radius_km|round|int }} km um {{ region.mittelpunkt }} · {{ events|length }} neue Einträge (SHK &amp; Elektro)</div>
+  </td></tr>
+  {% if modus == 'link' %}
+  <tr><td style="padding:20px 24px;font-size:14px;">
+    {% for g, typen in GROUPS.items() %}{% set n = events|selectattr('typ', 'in', typen)|list|length %}{% if n %}
+      <div>{{ g }}: <strong>{{ n }}</strong></div>{% endif %}{% endfor %}
+  </td></tr>
+  {% else %}
+  {% for e in events %}
+  <tr><td style="padding:14px 24px;border-bottom:1px solid #eef0f3;font-size:14px;">
+    <div style="font-size:12px;color:#5d6677;">{{ EVENT_TYPES.get(e.typ, e.typ) }}{% if e.unterart %}: {{ e.unterart }}{% endif %} · {{ e.branchen|join(', ') }} · {{ e.datum|de_date }}</div>
+    <div style="font-size:15px;font-weight:bold;margin:2px 0;">{{ e.firma }}</div>
+    <div style="color:#5d6677;font-size:13px;">{{ e.ort }}{% if e.entfernung_km is not none %} ({{ e.entfernung_km }} km){% endif %} · AG {{ e.gericht }} {{ e.register }}</div>
+    {% if e.strasse or e.plz %}<div style="font-size:13px;">{{ e.strasse }}, {{ e.plz }} {{ e.anschrift_ort or e.ort }}</div>{% endif %}
+    {% if e.gegenstand %}<div style="font-size:13px;margin-top:4px;">Gegenstand: {{ e.gegenstand|truncate(240) }}</div>{% endif %}
+    {% if e.vertretung and cfg.get('personen_namen_anzeigen') %}<div style="font-size:13px;">Vertretung: {{ e.vertretung }}</div>{% endif %}
+    {% if e.text %}<div style="font-size:13px;margin-top:4px;">{{ e.text|truncate(300) }}</div>{% endif %}
+  </td></tr>
+  {% endfor %}
+  {% endif %}
+  <tr><td style="padding:20px 24px;">
+    <a href="{{ link }}" style="display:inline-block;background:#1f5fae;color:#ffffff;text-decoration:none;padding:10px 18px;border-radius:6px;font-size:14px;">Alle Einträge auf der Übersichtsseite ansehen</a>
+  </td></tr>
+  <tr><td style="padding:0 24px 20px;font-size:11px;color:#8a92a1;">
+    Automatisch erstellt aus öffentlichen Registerdaten (handelsregister.de, insolvenzbekanntmachungen.de). Angaben ohne Gewähr.
+  </td></tr>
+</table>
+</td></tr></table>
+</body></html>

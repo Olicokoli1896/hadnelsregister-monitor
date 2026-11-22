@@ -116,7 +116,7 @@ class Insolvenz:
                     branchen = ctx.classifier.classify(row["firma"])
                     if not branchen:
                         continue
-                    regions = ctx.regions_for(ort=row["sitz"])
+                    regions = ctx.regions_for(ort=row["sitz"], gericht=row["gericht"])
                     if not regions:
                         continue
                     try:

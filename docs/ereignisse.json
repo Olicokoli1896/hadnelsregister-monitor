@@ -5,8 +5,8 @@
   ],
   "datum": "2026-11-16",
   "eintragungsdatum": "2026-11-16",
-  "entfernung_km": 0.0,
-  "erfasst_am": "2026-11-21T23:32:58",
+  "entfernung_km": 39.5,
+  "erfasst_am": "2026-11-22T00:43:23",
   "firma": "Fr. Richter Rohrleitungsbau GmbH",
   "gericht": "Kassel",
   "id": "a4fc07e7d1be861d",
@@ -16,7 +16,7 @@
   "quelle": "Registerbekanntmachung",
   "rechtsform": "Gesellschaft mit beschränkter Haftung",
   "regionen": [
-   "kassel"
+   "goettingen"
   ],
   "register": "HRB 13790",
   "text": "Den Gläubigern der an der Verschmelzung beteiligten Rechtsträger ist, wenn sie binnen sechs Monaten nach dem Tag, an dem die Eintragung der Verschmelzung in das Register des Sitzes desjenigen Rechtsträgers, dessen Gläubiger sie sind, nach § 19 Absatz 3 UmwG bekannt gemacht worden ist, ihren Anspruch nach Grund und Höhe schriftlich anmelden, Sicherheit zu leisten, soweit sie nicht Befriedigung verlangen können. Dieses Recht steht den Gläubigern jedoch nur zu, wenn sie glaubhaft machen, dass durch die Verschmelzung die Erfüllung ihrer Forderung gefährdet wird.",
@@ -30,8 +30,8 @@
   ],
   "datum": "2026-11-04",
   "eintragungsdatum": "2026-11-04",
-  "entfernung_km": 0.0,
-  "erfasst_am": "2026-11-21T23:33:04",
+  "entfernung_km": 39.5,
+  "erfasst_am": "2026-11-22T00:43:29",
   "firma": "Fr. Richter Rohrleitungsbau GmbH",
   "gericht": "Kassel",
   "id": "42b57e07df95985f",
@@ -41,7 +41,7 @@
   "quelle": "Registerbekanntmachung",
   "rechtsform": "Gesellschaft mit beschränkter Haftung",
   "regionen": [
-   "kassel"
+   "goettingen"
   ],
   "register": "HRB 13790",
   "text": "Den Gläubigern der an der Verschmelzung beteiligten Rechtsträger ist, wenn sie binnen sechs Monaten nach dem Tag, an dem die Eintragung der Verschmelzung in das Register des Sitzes desjenigen Rechtsträgers, dessen Gläubiger sie sind, nach § 19 Absatz 3 UmwG bekannt gemacht worden ist, ihren Anspruch nach Grund und Höhe schriftlich anmelden, Sicherheit zu leisten, soweit sie nicht Befriedigung verlangen können. Dieses Recht steht den Gläubigern jedoch nur zu, wenn sie glaubhaft machen, dass durch die Verschmelzung die Erfüllung ihrer Forderung gefährdet wird.",
@@ -53,23 +53,23 @@
   "branchen": [
    "SHK"
   ],
-  "datum": "2026-10-02",
-  "eintragungsdatum": "2026-10-02",
-  "entfernung_km": 14.2,
-  "erfasst_am": "2026-11-21T23:33:16",
-  "firma": "PV-Hansal Gebäudetechnik e.K.",
-  "gericht": "Kassel",
-  "id": "65d6b5e9aacc3b94",
-  "land": "Hessen",
+  "datum": "2026-10-27",
+  "eintragungsdatum": "2026-10-27",
+  "entfernung_km": 74.7,
+  "erfasst_am": "2026-11-22T00:43:47",
+  "firma": "Kavakbasi Kälte-Klima-Technik GmbH & Co. KG",
+  "gericht": "Lemgo",
+  "id": "3a702a048ea24089",
+  "land": "Nordrhein-Westfalen",
   "link": "https://www.handelsregister.de/rp_web/bekanntmachungen/welcome.xhtml",
-  "ort": "Immenhausen",
+  "ort": "Bad Salzuflen",
   "quelle": "Registerbekanntmachung",
-  "rechtsform": "",
+  "rechtsform": "Kommanditgesellschaft",
   "regionen": [
-   "kassel"
+   "hannover"
   ],
-  "register": "HRA 18523",
-  "text": "Den Gläubigern der an der Ausgliederung beteiligten Rechtsträger ist, wenn sie binnen sechs Monaten nach dem Tag, an dem die Eintragung der Ausgliederung in das Register des Sitzes desjenigen Rechtsträgers, dessen Gläubiger sie sind, nach §§ 125, 19 Absatz 3 UmwG bekannt gemacht worden ist, ihren Anspruch nach Grund und Höhe schriftlich anmelden, Sicherheit zu leisten, soweit sie nicht Befriedigung verlangen können. Dieses Recht steht den Gläubigern jedoch nur zu, wenn sie glaubhaft machen, dass durch die Ausgliederung die Erfüllung ihrer Forderung gefährdet wird.",
+  "register": "HRA 6593",
+  "text": "Den Gläubigern der an der Ausgliederung beteiligten Rechtsträger ist, wenn sie binnen sechs Monaten nach dem Tag, an dem die Eintragung der Ausgliederung in das Register des Sitzes desjenigen Rechtsträgers, dessen Gläubiger sie sind, nach § 19 Absatz 3 UmwG als bekanntgemacht gilt, ihren Anspruch nach Grund und Höhe schriftlich anmelden, Sicherheit zu leisten, soweit sie nicht Befriedigung verlangen können. Dieses Recht steht den Gläubigern jedoch nur zu, wenn sie glaubhaft machen, dass durch die Ausgliederung die Erfüllung ihrer Forderung gefährdet wird.",
   "titel": "Registerbekanntmachung nach dem Umwandlungsgesetz",
   "typ": "umwandlung",
   "unterart": "Ausgliederung"
@@ -78,25 +78,112 @@
   "branchen": [
    "SHK"
   ],
-  "datum": "2026-10-02",
-  "eintragungsdatum": "2026-10-02",
-  "entfernung_km": 14.2,
-  "erfasst_am": "2026-11-21T23:33:10",
-  "firma": "PV-Hansal Gebäudetechnik GmbH",
-  "gericht": "Kassel",
-  "id": "54112baaf377adf5",
-  "land": "Hessen",
+  "datum": "2026-10-15",
+  "eintragungsdatum": "2026-10-15",
+  "entfernung_km": 0.0,
+  "erfasst_am": "2026-11-22T00:43:53",
+  "firma": "SHK Manz GmbH",
+  "gericht": "Hannover",
+  "id": "aa700ed0a34ee108",
+  "land": "Niedersachsen",
   "link": "https://www.handelsregister.de/rp_web/bekanntmachungen/welcome.xhtml",
-  "ort": "Immenhausen",
+  "ort": "Hannover",
   "quelle": "Registerbekanntmachung",
   "rechtsform": "Gesellschaft mit beschränkter Haftung",
   "regionen": [
-   "kassel"
+   "hannover",
+   "braunschweig",
+   "goettingen",
+   "wolfsburg"
   ],
-  "register": "HRB 20866",
-  "text": "Den Gläubigern der an der Ausgliederung beteiligten Rechtsträger ist, wenn sie binnen sechs Monaten nach dem Tag, an dem die Eintragung der Ausgliederung in das Register des Sitzes desjenigen Rechtsträgers, dessen Gläubiger sie sind, nach §§ 125, 19 Absatz 3 UmwG bekannt gemacht worden ist, ihren Anspruch nach Grund und Höhe schriftlich anmelden, Sicherheit zu leisten, soweit sie nicht Befriedigung verlangen können. Dieses Recht steht den Gläubigern jedoch nur zu, wenn sie glaubhaft machen, dass durch die Ausgliederung die Erfüllung ihrer Forderung gefährdet wird.",
+  "register": "HRB 207698",
+  "text": "Das Registergericht beabsichtigt, die Gesellschaft von Amts wegen nach § 394 FamFG zu löschen. Die Frist zur Erhebung eines Widerspruchs ist auf 1 Monat ab dieser Registerbekanntmachung festgesetzt.",
+  "titel": "Löschungsankündigung",
+  "typ": "loeschungsankuendigung",
+  "unterart": ""
+ },
+ {
+  "branchen": [
+   "SHK"
+  ],
+  "datum": "2026-10-14",
+  "eintragungsdatum": "2026-10-14",
+  "entfernung_km": 6.7,
+  "erfasst_am": "2026-11-22T00:44:11",
+  "firma": "SKA Völzer Heizung und Sanitär GmbH",
+  "gericht": "Hannover",
+  "id": "3464d24633c2eddd",
+  "land": "Niedersachsen",
+  "link": "https://www.handelsregister.de/rp_web/bekanntmachungen/welcome.xhtml",
+  "ort": "Hemmingen",
+  "quelle": "Registerbekanntmachung",
+  "rechtsform": "Gesellschaft mit beschränkter Haftung",
+  "regionen": [
+   "hannover",
+   "braunschweig",
+   "goettingen",
+   "wolfsburg"
+  ],
+  "register": "HRB 231558",
+  "text": "Den Gläubigern der an der Ausgliederung beteiligten Rechtsträger ist, wenn sie binnen sechs Monaten nach dem Tag, an dem die Eintragung der Ausgliederung in das Register des Sitzes desjenigen Rechtsträgers, dessen Gläubiger sie sind, nach § 19 Abs. 3 UmwG als bekannt gemacht gilt, ihren Anspruch nach Grund und Höhe schriftlich anmelden, Sicherheit zu leisten, soweit sie nicht Befriedigung verlangen können. Dieses Recht steht den Gläubigern jedoch nur zu, wenn sie glaubhaft machen, dass durch die Ausgliederung die Erfüllung der Forderung gefährdet wird.",
   "titel": "Registerbekanntmachung nach dem Umwandlungsgesetz",
   "typ": "umwandlung",
   "unterart": "Ausgliederung"
+ },
+ {
+  "branchen": [
+   "SHK"
+  ],
+  "datum": "2026-10-14",
+  "eintragungsdatum": "2026-10-14",
+  "entfernung_km": 6.7,
+  "erfasst_am": "2026-11-22T00:44:05",
+  "firma": "SKA Heizungs-, Sanitär- & Feuerungstechnik Henry Völzer e. K.",
+  "gericht": "Hannover",
+  "id": "2df8904cf05072e2",
+  "land": "Niedersachsen",
+  "link": "https://www.handelsregister.de/rp_web/bekanntmachungen/welcome.xhtml",
+  "ort": "Hemmingen",
+  "quelle": "Registerbekanntmachung",
+  "rechtsform": "",
+  "regionen": [
+   "hannover",
+   "braunschweig",
+   "goettingen",
+   "wolfsburg"
+  ],
+  "register": "HRA 207085",
+  "text": "Den Gläubigern der an der Ausgliederung beteiligten Rechtsträger ist, wenn sie binnen sechs Monaten nach dem Tag, an dem die Eintragung der Ausgliederung in das Register des Sitzes desjenigen Rechtsträgers, dessen Gläubiger sie sind, nach § 19 Abs. 3 UmwG als bekannt gemacht gilt, ihren Anspruch nach Grund und Höhe schriftlich anmelden, Sicherheit zu leisten, soweit sie nicht Befriedigung verlangen können. Dieses Recht steht den Gläubigern jedoch nur zu, wenn sie glaubhaft machen, dass durch die Ausgliederung die Erfüllung der Forderung gefährdet wird.",
+  "titel": "Registerbekanntmachung nach dem Umwandlungsgesetz",
+  "typ": "umwandlung",
+  "unterart": "Ausgliederung"
+ },
+ {
+  "branchen": [
+   "SHK"
+  ],
+  "datum": "2026-10-14",
+  "eintragungsdatum": "2026-10-14",
+  "entfernung_km": 10.1,
+  "erfasst_am": "2026-11-22T00:43:59",
+  "firma": "Gebr. Böttcher Heizungs- und Sanitärtechnik Gesellschaft mit beschränkter Haftung",
+  "gericht": "Hannover",
+  "id": "1fd9f37085265c77",
+  "land": "Niedersachsen",
+  "link": "https://www.handelsregister.de/rp_web/bekanntmachungen/welcome.xhtml",
+  "ort": "Isernhagen",
+  "quelle": "Registerbekanntmachung",
+  "rechtsform": "Gesellschaft mit beschränkter Haftung",
+  "regionen": [
+   "hannover",
+   "braunschweig",
+   "goettingen",
+   "wolfsburg"
+  ],
+  "register": "HRB 1445",
+  "text": "Das Registergericht beabsichtigt, die Gesellschaft von Amts wegen nach § 394 FamFG zu löschen. Die Frist zur Erhebung eines Widerspruchs ist auf 1 Monat ab dieser Registerbekanntmachung festgesetzt.",
+  "titel": "Löschungsankündigung",
+  "typ": "loeschungsankuendigung",
+  "unterart": ""
  }
 ]

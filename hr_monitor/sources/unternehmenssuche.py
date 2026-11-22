@@ -30,6 +30,11 @@ BASE = "https://www.handelsregister.de"
 SEARCH_URL = BASE + "/rp_web/erweitertesuche/welcome.xhtml"
 MAX_HITS = 100
 MAX_WORDS = 5
+# Rechtsform-Codes des Suchformulars (nur bei mehr als 100 Treffern genutzt)
+RECHTSFORMEN = {
+    "HRB": ("8", "1", "16"),               # GmbH inkl. UG, AG, ausländische Rechtsform
+    "HRA": ("10", "12", "55", "5", "4"),   # KG, OHG, e.K. (verschiedene Codes)
+}
 
 REG_RE = re.compile(r"Amtsgericht\s+(?P<gericht>.+?)\s+(?P<reg>(?:HRA|HRB|GnR|PR|VR|GsR|PartR)\s+\S+(?:\s+\S+)?)$")
 
@@ -131,14 +136,14 @@ class SearchSession:
         self.result_url = ""
 
     def search(self, *, schlagwoerter: str, option: str = "2", gericht_code: str = "",
-               register_art: str = "", sitz: str = "") -> tuple[list[dict], bool]:
+               register_art: str = "", sitz: str = "", rechtsform: str = "") -> tuple[list[dict], bool]:
         r = self.http.get(SEARCH_URL)
         vs = re.search(r'name="javax.faces.ViewState"[^>]*value="([^"]+)"', r.text).group(1)
         data = {
             "form": "form", "suchTyp": "e", "form:schlagwoerter": schlagwoerter,
             "form:schlagwortOptionen": option, "form:NiederlassungSitz": sitz,
             "form:registerArt_input": register_art, "form:registerNummer": "",
-            "form:registergericht_input": gericht_code, "form:rechtsform_input": "",
+            "form:registergericht_input": gericht_code, "form:rechtsform_input": rechtsform,
             "form:staat_input": "", "form:postleitzahl": "", "form:ort": "", "form:strasse": "",
             "form:ergebnisseProSeite_input": "100", "form:btnSuche": "", "javax.faces.ViewState": vs,
         }
@@ -188,6 +193,10 @@ class Unternehmenssuche:
         # automatisch: Gerichte, deren bekannte Orte im Radius liegen
         result = []
         for gericht, orte in self.ctx.store.meta.get("gericht_orte", {}).items():
+            # Gerichte weit außerhalb ausschließen (mehrdeutige Ortsnamen wie "Neustadt")
+            d_g = self.ctx.geo.distance(reg.lat, reg.lon, ort=gericht)
+            if d_g is None or d_g > reg.radius_km + 60:
+                continue
             for o in orte:
                 d = self.ctx.geo.distance(reg.lat, reg.lon, ort=o)
                 if d is not None and d <= reg.radius_km:
@@ -232,6 +241,7 @@ class Unternehmenssuche:
                 continue
             try:
                 new += self._run_query(code, q)
+                ctx.store.save()  # Zwischenstand sichern
             except BudgetExceeded:
                 log.info("Abruflimit erreicht – nächster Lauf setzt bei %s fort", q["gericht"])
                 break
@@ -253,15 +263,16 @@ class Unternehmenssuche:
             sess = SearchSession(self.throttle)
             rows, overflow = sess.search(gericht_code=code, schlagwoerter=p["schlagwoerter"],
                                          option=p["option"], register_art=p.get("art", ""),
-                                         sitz=p.get("sitz", ""))
-            log.info("Suche %s %s %s %s: %d Treffer%s", q["gericht"], p["schlagwoerter"][:40],
-                     p.get("art", ""), p.get("sitz", ""), len(rows), " (Überlauf)" if overflow else "")
+                                         sitz=p.get("sitz", ""), rechtsform=p.get("rechtsform", ""))
+            log.info("Suche %s %s %s %s %s: %d Treffer%s", q["gericht"], p["schlagwoerter"][:40],
+                     p.get("art", ""), p.get("rechtsform", ""), p.get("sitz", ""), len(rows),
+                     " (Überlauf)" if overflow else "")
             if overflow or len(rows) >= MAX_HITS:
                 sub = self._split(p, q)
                 if sub:
                     plans[:0] = sub
                     continue
-            qkey = f'{q["gericht"]}|{p["schlagwoerter"]}|{p.get("art", "")}|{p.get("sitz", "")}'
+            qkey = "|".join([q["gericht"], p["schlagwoerter"], p.get("art", ""), p.get("rechtsform", ""), p.get("sitz", "")])
             new += self._diff(rows, sess, qkey)
         return new
 
@@ -271,11 +282,21 @@ class Unternehmenssuche:
             return [{**p, "schlagwoerter": w} for w in words]
         if not p.get("art"):
             return [{**p, "art": a} for a in ("HRA", "HRB")]
+        if not p.get("rechtsform") and p["art"] in RECHTSFORMEN:
+            return [{**p, "rechtsform": c} for c in RECHTSFORMEN[p["art"]]]
         if not p.get("sitz"):
-            reg = next(r for r in self.ctx.config.regionen if r.slug == q["region"])
-            orte = self.ctx.geo.places_within(reg.lat, reg.lon, reg.radius_km)
-            return [{**p, "sitz": o} for o, _, _ in orte[:40]]
+            return [{**p, "sitz": o} for o in self._orte_fuer_gericht(q["gericht"])]
         return []  # nicht weiter teilbar – Ergebnis wird so übernommen
+
+    def _orte_fuer_gericht(self, gericht: str) -> list[str]:
+        """Orte im Bezirk des Gerichts (aus den Bekanntmachungen gelernt), die in einer Region liegen."""
+        known = self.ctx.store.meta.get("gericht_orte", {}).get(gericht, [])
+        orte = [o for o in known if self.ctx.regions_for(ort=o, gericht=gericht)]
+        if not orte:
+            g = self.ctx.geo.locate(ort=gericht)
+            if g:
+                orte = [o for o, _, _ in self.ctx.geo.places_within(g[0], g[1], 25)]
+        return sorted(set(orte))[:60]
 
     def _diff(self, rows: list[dict], sess: SearchSession, qkey: str) -> int:
         ctx, store = self.ctx, self.ctx.store
@@ -287,7 +308,7 @@ class Unternehmenssuche:
             key = f'{row["gericht"]}|{row["register"]}'
             names = [row["firma"]] + [h["firma"] for h in row["historie"]]
             branchen = ctx.classifier.classify(*names)
-            regions = ctx.regions_for(ort=row["sitz"])
+            regions = ctx.regions_for(ort=row["sitz"], gericht=row["gericht"])
             old = store.companies.get(key)
             snapshot = {k: row[k] for k in ("gericht", "register", "firma", "sitz", "status", "land")}
             snapshot["zuletzt_gesehen"] = today

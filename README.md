@@ -7,7 +7,20 @@ Elektrobetrieben** in frei wählbaren Regionen (Stadt + Radius). Ergebnis:
   Ereignisart, Branche und Freitext, und allen Eckdaten zu jedem Eintrag,
 * **E-Mails pro Region** an eigene Verteiler, wahlweise mit allen Einträgen im Text oder
   nur mit Zusammenfassung und Link auf die Übersichtsseite,
-* **tägliche Aktualisierung** über GitHub Actions.
+* **Aktualisierung alle zwei Tage** über GitHub Actions.
+
+Voreingestellte Regionen: **Hannover, Braunschweig, Göttingen, Halberstadt, Wolfsburg**,
+jeweils 100 km Umkreis, jede mit eigenem Verteiler.
+
+### E-Mail-Logik
+
+* Jede Region bekommt ihre eigene Mail mit **allen aktuellen Einträgen**
+  (Datum höchstens `email.max_alter_tage` = 30 Tage alt).
+* **Bereits an eine Region verschickte Einträge kommen nie wieder vor.** Das Tool
+  speichert pro Region die versendeten Einträge (`data/state/meta.json` → `mail_gesendet`).
+  Ein Eintrag gilt erst nach erfolgreichem Versand als verschickt.
+* **Keine neuen Einträge → keine Mail** für diese Region.
+* Liegt ein Ort im Umkreis mehrerer Regionen, erhält jede dieser Regionen den Eintrag.
 
 ## Erfasste Ereignisse
 
@@ -51,14 +64,15 @@ Koordinaten umgerechnet und mit dem Radius um den Mittelpunkt der Region verglic
   „Elektroinstallation“ wird **nicht** als Neugründung erkannt. Bekanntmachungen und
   Insolvenzen zu solchen Firmen werden ebenfalls nur über den Namen gefunden.
 * **Nutzungsbedingungen handelsregister.de: höchstens 60 Abrufe pro Stunde.** Das Tool
-  wartet standardmäßig 62 Sekunden zwischen zwei Abrufen und macht höchstens 55 Abrufe
-  pro Lauf. Reicht das nicht für alle Gerichte, setzt der nächste Lauf an der Stelle fort,
-  an der der letzte aufgehört hat. Bei großen Regionen dauert ein kompletter Durchgang
-  also mehrere Tage, oder Sie lassen den Workflow mehrmals täglich laufen (mit mindestens
-  einer Stunde Abstand).
+  wartet standardmäßig 62 Sekunden zwischen zwei Abrufen und macht höchstens 260 Abrufe
+  pro Lauf (gut 4,5 Stunden). Für die fünf Regionen mit je 100 km kommen rund 30
+  Registergerichte zusammen. Der erste vollständige Durchgang verteilt sich deshalb auf
+  zwei bis drei Läufe; jeder Lauf setzt dort fort, wo der vorige aufgehört hat.
 * Die Unternehmenssuche liefert höchstens 100 Treffer pro Anfrage. Bei mehr Treffern teilt
   das Tool die Anfrage automatisch weiter auf: zuerst nach Einzelbegriffen, dann nach HRA/HRB,
-  dann nach Orten im Umkreis.
+  dann nach Rechtsform, zuletzt nach Orten im Gerichtsbezirk.
+* Mehrdeutige Ortsnamen (z. B. „Marl“, „Neustadt“) werden über den Standort des
+  zuständigen Gerichts aufgelöst.
 * Alle Angaben ohne Gewähr. Maßgeblich ist ausschließlich das amtliche Register.
 
 ## Einrichtung
@@ -67,7 +81,7 @@ Koordinaten umgerechnet und mit dem Radius um den Mittelpunkt der Region verglic
 
 In `config.yaml`:
 
-* `regionen`: Name, Mittelpunkt (Stadt oder PLZ), Radius, Empfänger und optional die
+* `regionen`: Name, Mittelpunkt (Stadt oder PLZ), Radius und optional die
   Registergerichte. Ohne Angabe werden die Gerichte automatisch aus den
   Registerbekanntmachungen ermittelt. Mit `python -m hr_monitor orte` sehen Sie, welche
   Orte im Radius liegen.
@@ -88,11 +102,17 @@ python -m hr_monitor mail --dry-run               # Mails als Dateien nach out/ 
 
 1. **E-Mail-Zugang als Secrets hinterlegen** (Repository → Settings → Secrets and
    variables → Actions): `SMTP_HOST`, `SMTP_PORT` (587 für STARTTLS oder 465 für SSL),
-   `SMTP_USER`, `SMTP_PASSWORD`, `MAIL_FROM`. Die Empfänger erhalten die Mail in BCC.
+   `SMTP_USER`, `SMTP_PASSWORD`, `MAIL_FROM`.
+   **Verteiler je Region** ebenfalls als Secret, mehrere Adressen durch Komma getrennt:
+   `EMPFAENGER_HANNOVER`, `EMPFAENGER_BRAUNSCHWEIG`, `EMPFAENGER_GOETTINGEN`,
+   `EMPFAENGER_HALBERSTADT`, `EMPFAENGER_WOLFSBURG`. Die Empfänger erhalten die Mail in
+   BCC. Für eine Region ohne Empfänger wird nichts verschickt; ihre Einträge bleiben
+   offen, bis ein Verteiler hinterlegt ist. Neue Regionen brauchen zusätzlich einen
+   Eintrag im Workflow (`.github/workflows/update.yml`, Abschnitt `env`).
 2. **GitHub Pages aktivieren**: Settings → Pages → „Deploy from a branch“, Branch `main`,
    Ordner `/docs`.
-3. Der Workflow `.github/workflows/update.yml` läuft täglich um 05:17 UTC und lässt sich
-   unter „Actions“ auch manuell starten. Er speichert den Datenstand (`data/state/`) und die
+3. Der Workflow `.github/workflows/update.yml` läuft alle zwei Tage um 03:17 UTC (an
+   ungeraden Kalendertagen) und lässt sich unter „Actions“ auch manuell starten. Er speichert den Datenstand (`data/state/`) und die
    Website (`docs/`) im Repository.
 
 > **Datenschutz:** Eine GitHub-Pages-Seite ist öffentlich erreichbar (Suchmaschinen werden

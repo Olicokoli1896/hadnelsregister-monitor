@@ -152,6 +152,8 @@ class Bekanntmachungen:
         log.info("Registerbekanntmachungen: %d Einträge in der Liste", len(entries))
         self.learn_courts(entries)
         new = 0
+        max_details = int(ctx.config.section("handelsregister").get("max_bekanntmachungen_details", 40))
+        details_done = 0
         for e in entries:
             eid = event_id("rb", e["datum"], e["rb_id"])
             if ctx.store.has_event(eid):
@@ -159,9 +161,14 @@ class Bekanntmachungen:
             branchen = ctx.classifier.classify(e["firma"])
             if not branchen:
                 continue
-            regions = ctx.regions_for(ort=e["ort"])
+            regions = ctx.regions_for(ort=e["ort"], gericht=e["gericht"])
             if not regions:
                 continue
+            if details_done >= max_details:
+                # Rest beim nächsten Lauf (die Liste reicht 8 Wochen zurück)
+                log.info("Detail-Limit erreicht – weitere Treffer folgen im nächsten Lauf")
+                break
+            details_done += 1
             details = {}
             try:
                 details = self.fetch_detail(page, e)

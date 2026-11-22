@@ -16,23 +16,32 @@ anzeige_tage: 120
 
 # ---------------------------------------------------------------------------
 # Regionen: Mittelpunkt (Stadt oder PLZ) + Radius in km.
-# Jede Region bekommt eine eigene Übersichtsseite und eine eigene Verteilerliste.
-#   registergerichte: optional. Leer lassen = automatisch aus den
-#   Registerbekanntmachungen ermitteln (alle Gerichte mit Firmensitzen im Radius).
+# Jede Region bekommt eine eigene Übersichtsseite und einen eigenen Verteiler.
+#
+# Empfänger: Damit die Adressen nicht öffentlich im Repository stehen, werden sie
+# als GitHub-Secret hinterlegt: EMPFAENGER_<REGION>, z. B. EMPFAENGER_HANNOVER,
+# mehrere Adressen durch Komma getrennt. Zusätzlich (oder stattdessen) können
+# Adressen unter "empfaenger" eingetragen werden.
+#
+# registergerichte: optional. Leer lassen = automatisch aus den
+# Registerbekanntmachungen ermitteln (alle Gerichte mit Firmensitzen im Radius).
 # ---------------------------------------------------------------------------
 regionen:
-  - name: "Kassel"
-    mittelpunkt: "Kassel"
-    radius_km: 40
-    registergerichte: [Kassel, Fritzlar, Korbach, Eschwege, Göttingen]
-    empfaenger:
-      - "vertrieb-nordhessen@example.com"
-
-  # Beispiel für eine zweite Region:
-  # - name: "Frankfurt"
-  #   mittelpunkt: "60311"
-  #   radius_km: 30
-  #   empfaenger: ["team-rhein-main@example.com"]
+  - name: "Hannover"
+    mittelpunkt: "Hannover"
+    radius_km: 100
+  - name: "Braunschweig"
+    mittelpunkt: "Braunschweig"
+    radius_km: 100
+  - name: "Göttingen"
+    mittelpunkt: "Göttingen"
+    radius_km: 100
+  - name: "Halberstadt"
+    mittelpunkt: "Halberstadt"
+    radius_km: 100
+  - name: "Wolfsburg"
+    mittelpunkt: "Wolfsburg"
+    radius_km: 100
 
 # ---------------------------------------------------------------------------
 # Branchenzuordnung. Ein Unternehmen gilt als SHK bzw. Elektro, wenn
@@ -56,10 +65,11 @@ branchen:
                wallbox]
     ausschluss: [elektronik, elektronisch, elektromobil]
 
-# Suchbegriffe für die Handelsregister-Unternehmenssuche (Firmenname, * = Platzhalter)
+# Suchbegriffe für die Handelsregister-Unternehmenssuche (Firmenname, * = Platzhalter).
+# Je 5 Begriffe ergeben eine Suche pro Registergericht (2 Abrufe).
 suchbegriffe_register: ["Elektro*", "Sanitär*", "Heizung*", "Haustechnik*",
                         "Gebäudetechnik*", "Klima*", "Photovoltaik*", "Solar*",
-                        "Installation*", "Energietechnik*", "SHK"]
+                        "Installation*", "Energietechnik*"]
 
 # Suchbegriffe für insolvenzbekanntmachungen.de (Firmenname, * = Platzhalter)
 suchbegriffe_insolvenz: ["*Elektro*", "*Sanitär*", "*Heizung*", "*Haustechnik*",
@@ -76,7 +86,12 @@ quellen:
 # Nutzungsbedingungen handelsregister.de: max. 60 Abrufe pro Stunde.
 handelsregister:
   sekunden_zwischen_abrufen: 62
-  max_abrufe_pro_lauf: 55
+  # Ein Lauf alle zwei Tage darf bis zu ~4,5 Stunden dauern (62 s x 260),
+  # bleibt damit aber unter 60 Abrufen pro Stunde.
+  max_abrufe_pro_lauf: 260
+  # Höchstens so viele Bekanntmachungs-Volltexte pro Lauf (je 2 Abrufe);
+  # der Rest wird beim nächsten Lauf nachgeholt.
+  max_bekanntmachungen_details: 40
 
 insolvenz:
   sekunden_zwischen_abrufen: 4
@@ -96,5 +111,8 @@ email:
   aktiv: true
   # "text" = Ereignisse direkt in der Mail, "link" = nur Zusammenfassung + Link
   modus: "text"
+  # Nur Einträge verschicken, deren Datum höchstens so viele Tage zurückliegt.
+  # Bereits an eine Region verschickte Einträge werden nie erneut verschickt.
+  max_alter_tage: 30
   betreff: "Handelsregister-Update {region}: {anzahl} neue Einträge"
   nur_bei_neuen_eintraegen: true

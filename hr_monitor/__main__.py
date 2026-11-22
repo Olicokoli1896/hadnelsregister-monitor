@@ -55,6 +55,13 @@ def cmd_run(args, ctx: Context):
         except Exception:
             log.exception("Registerbekanntmachungen fehlgeschlagen")
         ctx.store.save()
+    if quellen.get("insolvenz"):
+        from .sources.insolvenz import Insolvenz
+        try:
+            summary["Insolvenzen"] = Insolvenz(ctx).run()
+        except Exception:
+            log.exception("Insolvenzsuche fehlgeschlagen")
+        ctx.store.save()
     if quellen.get("unternehmenssuche"):
         from .sources.unternehmenssuche import Unternehmenssuche
         try:
@@ -62,12 +69,6 @@ def cmd_run(args, ctx: Context):
         except Exception:
             log.exception("Unternehmenssuche fehlgeschlagen")
         ctx.store.save()
-    if quellen.get("insolvenz"):
-        from .sources.insolvenz import Insolvenz
-        try:
-            summary["Insolvenzen"] = Insolvenz(ctx).run()
-        except Exception:
-            log.exception("Insolvenzsuche fehlgeschlagen")
     ctx.store.prune(int(cfg.section("insolvenz").get("aufbewahrung_tage", 180)))
     ctx.store.save()
     log.info("Neue Ereignisse: %s (Abrufe handelsregister.de: %d)", summary, throttle.count)

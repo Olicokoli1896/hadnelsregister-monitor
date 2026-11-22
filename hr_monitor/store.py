@@ -91,6 +91,9 @@ class Store:
         for eid in [k for k, e in self.events.items()
                     if e["typ"].startswith("insolvenz") and (e.get("datum") or "") < limit]:
             del self.events[eid]
+        # Versandprotokoll auf noch vorhandene Ereignisse beschränken
+        for slug, ids in self.meta.get("mail_gesendet", {}).items():
+            self.meta["mail_gesendet"][slug] = [i for i in ids if i in self.events]
 
     # -- Speichern ------------------------------------------------------------
     def save(self):

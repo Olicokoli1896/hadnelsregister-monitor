@@ -2,8 +2,10 @@ name: Handelsregister-Update
 
 on:
   schedule:
-    # täglich 05:17 Uhr UTC (06:17 / 07:17 Uhr deutscher Zeit)
-    - cron: "17 5 * * *"
+    # alle zwei Tage um 03:17 Uhr UTC (04:17 / 05:17 Uhr deutscher Zeit).
+    # Hinweis: */2 bezieht sich auf den Kalendertag (1., 3., 5. …); am Monatsende
+    # kann der Abstand daher einmal einen oder drei Tage betragen.
+    - cron: "17 3 */2 * *"
   workflow_dispatch:
     inputs:
       no_mail:
@@ -21,7 +23,7 @@ concurrency:
 jobs:
   update:
     runs-on: ubuntu-latest
-    timeout-minutes: 150
+    timeout-minutes: 350
     steps:
       - uses: actions/checkout@v4
 
@@ -33,12 +35,22 @@ jobs:
       - run: pip install -r requirements.txt
 
       - name: Daten abrufen, Website bauen, Mails senden
+        # Sicherheitsgrenze: bricht der Lauf ab, werden die Zwischenstände
+        # trotzdem gespeichert; nicht versendete Einträge folgen beim nächsten Lauf.
+        timeout-minutes: 320
+        continue-on-error: true
         env:
           SMTP_HOST: ${{ secrets.SMTP_HOST }}
           SMTP_PORT: ${{ secrets.SMTP_PORT }}
           SMTP_USER: ${{ secrets.SMTP_USER }}
           SMTP_PASSWORD: ${{ secrets.SMTP_PASSWORD }}
           MAIL_FROM: ${{ secrets.MAIL_FROM }}
+          # Verteiler je Region (mehrere Adressen durch Komma getrennt)
+          EMPFAENGER_HANNOVER: ${{ secrets.EMPFAENGER_HANNOVER }}
+          EMPFAENGER_BRAUNSCHWEIG: ${{ secrets.EMPFAENGER_BRAUNSCHWEIG }}
+          EMPFAENGER_GOETTINGEN: ${{ secrets.EMPFAENGER_GOETTINGEN }}
+          EMPFAENGER_HALBERSTADT: ${{ secrets.EMPFAENGER_HALBERSTADT }}
+          EMPFAENGER_WOLFSBURG: ${{ secrets.EMPFAENGER_WOLFSBURG }}
         run: |
           if [ "${{ inputs.no_mail }}" = "true" ]; then
             python -m hr_monitor run --no-mail
@@ -46,7 +58,12 @@ jobs:
             python -m hr_monitor run
           fi
 
+      - name: Website aktualisieren
+        if: always()
+        run: python -m hr_monitor site
+
       - name: Ergebnisse speichern
+        if: always()
         run: |
           git config user.name "hr-monitor-bot"
           git config user.email "hr-monitor-bot@users.noreply.github.com"

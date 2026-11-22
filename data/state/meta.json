@@ -2217,26 +2217,5 @@
    "Weselberg",
    "Kindsbach"
   ]
- },
- "suche_baseline": [
-  "Kassel|Elektro*||",
-  "Kassel|Sanitär*||",
-  "Kassel|Heizung*||",
-  "Kassel|Haustechnik*||",
-  "Kassel|Gebäudetechnik*||",
-  "Kassel|Klima* Photovoltaik* Solar* Installation* Energietechnik*||",
-  "Kassel|SHK||",
-  "Fritzlar|Elektro* Sanitär* Heizung* Haustechnik* Gebäudetechnik*||",
-  "Fritzlar|Klima* Photovoltaik* Solar* Installation* Energietechnik*||",
-  "Fritzlar|SHK||",
-  "Korbach|Elektro* Sanitär* Heizung* Haustechnik* Gebäudetechnik*||",
-  "Korbach|Klima* Photovoltaik* Solar* Installation* Energietechnik*||",
-  "Korbach|SHK||",
-  "Eschwege|Elektro* Sanitär* Heizung* Haustechnik* Gebäudetechnik*||",
-  "Eschwege|Klima* Photovoltaik* Solar* Installation* Energietechnik*||",
-  "Eschwege|SHK||",
-  "Göttingen|Elektro* Sanitär* Heizung* Haustechnik* Gebäudetechnik*||",
-  "Göttingen|Klima* Photovoltaik* Solar* Installation* Energietechnik*||"
- ],
- "suche_position": 4
+ }
 }

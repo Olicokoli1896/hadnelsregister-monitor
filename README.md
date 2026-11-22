@@ -103,6 +103,9 @@ python -m hr_monitor mail --dry-run               # Mails als Dateien nach out/ 
 1. **E-Mail-Zugang als Secrets hinterlegen** (Repository → Settings → Secrets and
    variables → Actions): `SMTP_HOST`, `SMTP_PORT` (587 für STARTTLS oder 465 für SSL),
    `SMTP_USER`, `SMTP_PASSWORD`, `MAIL_FROM`.
+   **Mit [Resend](https://resend.com):** `SMTP_HOST=smtp.resend.com`, `SMTP_PORT=465`,
+   `SMTP_USER=resend`, `SMTP_PASSWORD=<Resend-API-Key, beginnt mit re_>`,
+   `MAIL_FROM=<Adresse auf der in Resend verifizierten Domain>`.
    **Verteiler je Region** ebenfalls als Secret, mehrere Adressen durch Komma getrennt:
    `EMPFAENGER_HANNOVER`, `EMPFAENGER_BRAUNSCHWEIG`, `EMPFAENGER_GOETTINGEN`,
    `EMPFAENGER_HALBERSTADT`, `EMPFAENGER_WOLFSBURG`. Die Empfänger erhalten die Mail in

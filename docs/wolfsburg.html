@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>Wolfsburg – Handelsregister-Monitor SHK &amp; Elektro</title>
+<style>
+  :root {
+    --bg: #f5f6f8; --card: #fff; --text: #1d2330; --muted: #5d6677; --line: #e1e4ea;
+    --accent: #1f5fae; --gruendung: #1b8a4b; --veraenderung: #1f5fae; --loeschung: #8a6d1b; --insolvenz: #b42318;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root { --bg: #14171c; --card: #1d2128; --text: #e7e9ee; --muted: #9aa3b2; --line: #2d333d;
+            --accent: #6aa5ef; --gruendung: #4cc283; --veraenderung: #6aa5ef; --loeschung: #d2b14c; --insolvenz: #f07a6e; }
+  }
+  * { box-sizing: border-box; }
+  body { margin: 0; font: 15px/1.5 system-ui, -apple-system, "Segoe UI", Roboto, sans-serif; background: var(--bg); color: var(--text); }
+  header { background: var(--card); border-bottom: 1px solid var(--line); padding: 18px 24px; }
+  header h1 { margin: 0; font-size: 20px; }
+  header p { margin: 4px 0 0; color: var(--muted); font-size: 13px; }
+  header a { color: var(--accent); text-decoration: none; }
+  main { max-width: 1100px; margin: 0 auto; padding: 20px 16px 60px; }
+  .tiles { display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); gap: 12px; margin-bottom: 20px; }
+  .tile { background: var(--card); border: 1px solid var(--line); border-radius: 10px; padding: 14px 16px; }
+  .tile .n { font-size: 26px; font-weight: 650; }
+  .tile .l { color: var(--muted); font-size: 13px; }
+  .filters { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 16px; align-items: center; }
+  .filters input, .filters select { padding: 7px 10px; border: 1px solid var(--line); border-radius: 8px; background: var(--card); color: var(--text); font: inherit; }
+  .filters input { flex: 1; min-width: 200px; }
+  .card { background: var(--card); border: 1px solid var(--line); border-left: 4px solid var(--accent); border-radius: 10px; padding: 14px 18px; margin-bottom: 12px; }
+  .card.g-Gründung { border-left-color: var(--gruendung); }
+  .card.g-Veränderung { border-left-color: var(--veraenderung); }
+  .card.g-Löschung { border-left-color: var(--loeschung); }
+  .card.g-Insolvenz { border-left-color: var(--insolvenz); }
+  .card h3 { margin: 0 0 2px; font-size: 16px; }
+  .meta { color: var(--muted); font-size: 13px; }
+  .badge { display: inline-block; font-size: 12px; padding: 1px 8px; border-radius: 99px; border: 1px solid var(--line); margin-right: 4px; }
+  .badge.typ { font-weight: 600; }
+  .badge.neu { background: var(--accent); color: #fff; border-color: var(--accent); }
+  dl { display: grid; grid-template-columns: 170px 1fr; gap: 2px 12px; margin: 10px 0 0; font-size: 14px; }
+  dt { color: var(--muted); }
+  dd { margin: 0; }
+  details summary { cursor: pointer; color: var(--accent); font-size: 13px; margin-top: 8px; }
+  .text { white-space: pre-wrap; font-size: 14px; margin-top: 6px; }
+  table.regions { width: 100%; border-collapse: collapse; background: var(--card); border: 1px solid var(--line); border-radius: 10px; overflow: hidden; }
+  table.regions th, table.regions td { text-align: left; padding: 10px 14px; border-bottom: 1px solid var(--line); }
+  table.regions th { color: var(--muted); font-weight: 500; font-size: 13px; }
+  table.regions td.num { text-align: right; font-variant-numeric: tabular-nums; }
+  a { color: var(--accent); }
+  footer { color: var(--muted); font-size: 12px; margin-top: 40px; }
+  .empty { color: var(--muted); padding: 30px; text-align: center; }
+  @media (max-width: 600px) { dl { grid-template-columns: 1fr; } dt { margin-top: 6px; } }
+</style>
+</head>
+<body>
+<header>
+  <h1>Wolfsburg <span style="font-weight:400;color:var(--muted)">· 100 km um Wolfsburg</span></h1>
+  <p>Stand: 22.11.2026 00:44 · <a href="index.html">Alle Regionen</a></p>
+</header>
+<main>
+
+<div class="tiles">
+  
+  <div class="tile"><div class="n">0</div><div class="l">Gründung</div></div>
+  
+  <div class="tile"><div class="n">2</div><div class="l">Veränderung</div></div>
+  
+  <div class="tile"><div class="n">2</div><div class="l">Löschung</div></div>
+  
+  <div class="tile"><div class="n">0</div><div class="l">Insolvenz</div></div>
+  
+  <div class="tile"><div class="n">4</div><div class="l">Gesamt (120 Tage)</div></div>
+</div>
+
+<div class="filters">
+  <input id="q" type="search" placeholder="Suche nach Firma, Ort, HRB, Text …">
+  <select id="gruppe"><option value="">Alle Ereignisse</option><option>Gründung</option><option>Veränderung</option><option>Löschung</option><option>Insolvenz</option></select>
+  <select id="branche"><option value="">Alle Branchen</option><option>SHK</option><option>Elektro</option></select>
+  <span class="meta" id="count"></span>
+</div>
+
+<div id="list">
+
+<article class="card g-Löschung" data-gruppe="Löschung" data-branchen="SHK"
+         data-search="shk manz gmbh hannover hrb 207698 das registergericht beabsichtigt, die gesellschaft von amts wegen nach § 394 famfg zu löschen. die frist zur erhebung eines widerspruchs ist auf 1 monat ab dieser registerbekanntmachung festgesetzt. ">
+  <div>
+    <span class="badge typ">Löschungsankündigung</span>
+    <span class="badge">SHK</span>
+    
+  </div>
+  <h3>SHK Manz GmbH</h3>
+  <div class="meta">15.10.2026 · Hannover (0.0 km)
+    · Amtsgericht Hannover HRB 207698</div>
+  <dl>
+    <dt>Info</dt><dd>Das Registergericht beabsichtigt, die Gesellschaft von Amts wegen nach § 394 FamFG zu löschen. Die Frist zur Erhebung eines Widerspruchs ist auf 1 Monat ab dieser Registerbekanntmachung festgesetzt.</dd>
+    <dt>Rechtsform</dt><dd>Gesellschaft mit beschränkter Haftung</dd>
+    
+    
+    
+    
+    <dt>Eintragungsdatum</dt><dd>15.10.2026</dd>
+    
+    
+    
+    
+    <dt>Quelle</dt><dd>Registerbekanntmachung · <a href="https://www.handelsregister.de/rp_web/bekanntmachungen/welcome.xhtml" target="_blank" rel="noopener">Portal öffnen</a></dd>
+  </dl>
+  
+</article>
+<article class="card g-Veränderung" data-gruppe="Veränderung" data-branchen="SHK"
+         data-search="ska völzer heizung und sanitär gmbh hemmingen hrb 231558 den gläubigern der an der ausgliederung beteiligten rechtsträger ist, wenn sie binnen sechs monaten nach dem tag, an dem die eintragung der ausgliederung in das register des sitzes desjenigen rechtsträgers, dessen gläubiger sie sind, nach § 19 abs. 3 umwg als bekannt gemacht gilt, ihren anspruch nach grund und höhe schriftlich anmelden, sicherheit zu leisten, soweit sie nicht befriedigung verlangen können. dieses recht steht den gläubigern jedoch nur zu, wenn sie glaubhaft machen, dass durch die ausgliederung die erfüllung der forderung gefährdet wird. ">
+  <div>
+    <span class="badge typ">Umwandlung: Ausgliederung</span>
+    <span class="badge">SHK</span>
+    
+  </div>
+  <h3>SKA Völzer Heizung und Sanitär GmbH</h3>
+  <div class="meta">14.10.2026 · Hemmingen (6.7 km)
+    · Amtsgericht Hannover HRB 231558</div>
+  <dl>
+    <dt>Info</dt><dd>Den Gläubigern der an der Ausgliederung beteiligten Rechtsträger ist, wenn sie binnen sechs Monaten nach dem Tag, an dem die Eintragung der Ausgliederung in das Register des Sitzes desjenigen Rechtsträgers, dessen Gläubiger sie sind, nach § 19 Abs. 3 UmwG als bekannt gemacht gilt, ihren Anspruch nach Grund und Höhe schriftlich anmelden, Sicherheit zu leisten, soweit sie nicht Befriedigung...</dd>
+    <dt>Rechtsform</dt><dd>Gesellschaft mit beschränkter Haftung</dd>
+    
+    
+    
+    
+    <dt>Eintragungsdatum</dt><dd>14.10.2026</dd>
+    
+    
+    
+    
+    <dt>Quelle</dt><dd>Registerbekanntmachung – Registerbekanntmachung nach dem Umwandlungsgesetz · <a href="https://www.handelsregister.de/rp_web/bekanntmachungen/welcome.xhtml" target="_blank" rel="noopener">Portal öffnen</a></dd>
+  </dl>
+  
+  <details><summary>Volltext anzeigen</summary><div class="text">Den Gläubigern der an der Ausgliederung beteiligten Rechtsträger ist, wenn sie binnen sechs Monaten nach dem Tag, an dem die Eintragung der Ausgliederung in das Register des Sitzes desjenigen Rechtsträgers, dessen Gläubiger sie sind, nach § 19 Abs. 3 UmwG als bekannt gemacht gilt, ihren Anspruch nach Grund und Höhe schriftlich anmelden, Sicherheit zu leisten, soweit sie nicht Befriedigung verlangen können. Dieses Recht steht den Gläubigern jedoch nur zu, wenn sie glaubhaft machen, dass durch die Ausgliederung die Erfüllung der Forderung gefährdet wird.</div></details>
+  
+</article>
+<article class="card g-Veränderung" data-gruppe="Veränderung" data-branchen="SHK"
+         data-search="ska heizungs-, sanitär- &amp; feuerungstechnik henry völzer e. k. hemmingen hra 207085 den gläubigern der an der ausgliederung beteiligten rechtsträger ist, wenn sie binnen sechs monaten nach dem tag, an dem die eintragung der ausgliederung in das register des sitzes desjenigen rechtsträgers, dessen gläubiger sie sind, nach § 19 abs. 3 umwg als bekannt gemacht gilt, ihren anspruch nach grund und höhe schriftlich anmelden, sicherheit zu leisten, soweit sie nicht befriedigung verlangen können. dieses recht steht den gläubigern jedoch nur zu, wenn sie glaubhaft machen, dass durch die ausgliederung die erfüllung der forderung gefährdet wird. ">
+  <div>
+    <span class="badge typ">Umwandlung: Ausgliederung</span>
+    <span class="badge">SHK</span>
+    
+  </div>
+  <h3>SKA Heizungs-, Sanitär- &amp; Feuerungstechnik Henry Völzer e. K.</h3>
+  <div class="meta">14.10.2026 · Hemmingen (6.7 km)
+    · Amtsgericht Hannover HRA 207085</div>
+  <dl>
+    <dt>Info</dt><dd>Den Gläubigern der an der Ausgliederung beteiligten Rechtsträger ist, wenn sie binnen sechs Monaten nach dem Tag, an dem die Eintragung der Ausgliederung in das Register des Sitzes desjenigen Rechtsträgers, dessen Gläubiger sie sind, nach § 19 Abs. 3 UmwG als bekannt gemacht gilt, ihren Anspruch nach Grund und Höhe schriftlich anmelden, Sicherheit zu leisten, soweit sie nicht Befriedigung...</dd>
+    
+    
+    
+    
+    
+    <dt>Eintragungsdatum</dt><dd>14.10.2026</dd>
+    
+    
+    
+    
+    <dt>Quelle</dt><dd>Registerbekanntmachung – Registerbekanntmachung nach dem Umwandlungsgesetz · <a href="https://www.handelsregister.de/rp_web/bekanntmachungen/welcome.xhtml" target="_blank" rel="noopener">Portal öffnen</a></dd>
+  </dl>
+  
+  <details><summary>Volltext anzeigen</summary><div class="text">Den Gläubigern der an der Ausgliederung beteiligten Rechtsträger ist, wenn sie binnen sechs Monaten nach dem Tag, an dem die Eintragung der Ausgliederung in das Register des Sitzes desjenigen Rechtsträgers, dessen Gläubiger sie sind, nach § 19 Abs. 3 UmwG als bekannt gemacht gilt, ihren Anspruch nach Grund und Höhe schriftlich anmelden, Sicherheit zu leisten, soweit sie nicht Befriedigung verlangen können. Dieses Recht steht den Gläubigern jedoch nur zu, wenn sie glaubhaft machen, dass durch die Ausgliederung die Erfüllung der Forderung gefährdet wird.</div></details>
+  
+</article>
+<article class="card g-Löschung" data-gruppe="Löschung" data-branchen="SHK"
+         data-search="gebr. böttcher heizungs- und sanitärtechnik gesellschaft mit beschränkter haftung isernhagen hrb 1445 das registergericht beabsichtigt, die gesellschaft von amts wegen nach § 394 famfg zu löschen. die frist zur erhebung eines widerspruchs ist auf 1 monat ab dieser registerbekanntmachung festgesetzt. ">
+  <div>
+    <span class="badge typ">Löschungsankündigung</span>
+    <span class="badge">SHK</span>
+    
+  </div>
+  <h3>Gebr. Böttcher Heizungs- und Sanitärtechnik Gesellschaft mit beschränkter Haftung</h3>
+  <div class="meta">14.10.2026 · Isernhagen (10.1 km)
+    · Amtsgericht Hannover HRB 1445</div>
+  <dl>
+    <dt>Info</dt><dd>Das Registergericht beabsichtigt, die Gesellschaft von Amts wegen nach § 394 FamFG zu löschen. Die Frist zur Erhebung eines Widerspruchs ist auf 1 Monat ab dieser Registerbekanntmachung festgesetzt.</dd>
+    <dt>Rechtsform</dt><dd>Gesellschaft mit beschränkter Haftung</dd>
+    
+    
+    
+    
+    <dt>Eintragungsdatum</dt><dd>14.10.2026</dd>
+    
+    
+    
+    
+    <dt>Quelle</dt><dd>Registerbekanntmachung · <a href="https://www.handelsregister.de/rp_web/bekanntmachungen/welcome.xhtml" target="_blank" rel="noopener">Portal öffnen</a></dd>
+  </dl>
+  
+</article>
+</div>
+
+<script>
+(function () {
+  var q = document.getElementById('q'), g = document.getElementById('gruppe'),
+      b = document.getElementById('branche'), c = document.getElementById('count'),
+      cards = Array.prototype.slice.call(document.querySelectorAll('#list .card'));
+  function apply() {
+    var s = q.value.trim().toLowerCase(), n = 0;
+    cards.forEach(function (el) {
+      var ok = (!s || el.dataset.search.indexOf(s) >= 0) &&
+               (!g.value || el.dataset.gruppe === g.value) &&
+               (!b.value || (' ' + el.dataset.branchen + ' ').indexOf(' ' + b.value + ' ') >= 0);
+      el.style.display = ok ? '' : 'none'; if (ok) n++;
+    });
+    c.textContent = n + ' von ' + cards.length + ' Einträgen';
+  }
+  [q, g, b].forEach(function (el) { el.addEventListener('input', apply); });
+  apply();
+})();
+</script>
+
+<footer>
+  Quellen: Gemeinsames Registerportal der Länder (handelsregister.de), Insolvenzbekanntmachungen
+  (insolvenzbekanntmachungen.de). Angaben ohne Gewähr; maßgeblich ist ausschließlich das amtliche Register.
+  Branchenzuordnung automatisch anhand von Firmenname und Unternehmensgegenstand.
+  Ortsdaten: GeoNames (CC BY 4.0).
+</footer>
+</main>
+</body>
+</html>

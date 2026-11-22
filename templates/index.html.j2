@@ -1,0 +1,18 @@
+{% extends "base.html.j2" %}
+{% block content %}
+<table class="regions">
+  <thead><tr><th>Region</th><th>Umkreis</th>{% for g in GROUPS %}<th>{{ g }}</th>{% endfor %}<th>Gesamt</th></tr></thead>
+  <tbody>
+  {% for r in regions %}
+    <tr>
+      <td><a href="{{ r.region.slug }}.html"><strong>{{ r.region.name }}</strong></a></td>
+      <td>{{ r.region.radius_km|round|int }} km um {{ r.region.mittelpunkt }}</td>
+      {% for g in GROUPS %}<td class="num">{{ r.stats[g] }}</td>{% endfor %}
+      <td class="num"><strong>{{ r.events|length }}</strong></td>
+    </tr>
+  {% endfor %}
+  </tbody>
+</table>
+<p class="meta">Angezeigt werden Ereignisse der letzten {{ cfg.get('anzeige_tage', 120) }} Tage.
+  Rohdaten: <a href="ereignisse.json">ereignisse.json</a></p>
+{% endblock %}

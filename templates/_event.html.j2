@@ -1,0 +1,29 @@
+{% set g = GROUP_OF.get(e.typ, 'Veränderung') %}
+<article class="card g-{{ g }}" data-gruppe="{{ g }}" data-branchen="{{ e.branchen|join(' ') }}"
+         data-search="{{ (e.firma ~ ' ' ~ e.ort ~ ' ' ~ (e.register or '') ~ ' ' ~ (e.text or '') ~ ' ' ~ (e.gegenstand or ''))|lower }}">
+  <div>
+    <span class="badge typ">{{ EVENT_TYPES.get(e.typ, e.typ) }}{% if e.unterart %}: {{ e.unterart }}{% endif %}</span>
+    {% for b in e.branchen %}<span class="badge">{{ b }}</span>{% endfor %}
+    {% if new_ids and e.id in new_ids %}<span class="badge neu">neu</span>{% endif %}
+  </div>
+  <h3>{{ e.firma }}</h3>
+  <div class="meta">{{ e.datum|de_date }} · {{ e.ort }}{% if e.entfernung_km is not none %} ({{ e.entfernung_km }} km){% endif %}
+    · Amtsgericht {{ e.gericht }} {{ e.register }}</div>
+  <dl>
+    {% if e.text %}<dt>Info</dt><dd>{{ e.text|truncate(400) }}</dd>{% endif %}
+    {% if e.rechtsform %}<dt>Rechtsform</dt><dd>{{ e.rechtsform }}</dd>{% endif %}
+    {% if e.strasse or e.plz %}<dt>Anschrift</dt><dd>{{ e.strasse }}, {{ e.plz }} {{ e.anschrift_ort or e.ort }}</dd>{% endif %}
+    {% if e.gegenstand %}<dt>Gegenstand</dt><dd>{{ e.gegenstand }}</dd>{% endif %}
+    {% if e.kapital %}<dt>Kapital</dt><dd>{{ e.kapital }}</dd>{% endif %}
+    {% if e.vertretung and cfg.get('personen_namen_anzeigen') %}<dt>Vertretung</dt><dd>{{ e.vertretung }}</dd>{% endif %}
+    {% if e.eintragungsdatum %}<dt>Eintragungsdatum</dt><dd>{{ e.eintragungsdatum|de_date }}</dd>{% endif %}
+    {% if e.satzungsdatum %}<dt>Gesellschaftsvertrag</dt><dd>{{ e.satzungsdatum|de_date }}</dd>{% endif %}
+    {% if e.aktenzeichen %}<dt>Aktenzeichen</dt><dd>{{ e.aktenzeichen }} ({{ e.insolvenzgericht }})</dd>{% endif %}
+    {% if e.status %}<dt>Status</dt><dd>{{ e.status }}</dd>{% endif %}
+    {% if e.historie %}<dt>Frühere Namen</dt><dd>{% for h in e.historie %}{{ h.firma }} ({{ h.sitz }}){% if not loop.last %}; {% endif %}{% endfor %}</dd>{% endif %}
+    <dt>Quelle</dt><dd>{{ e.quelle }}{% if e.titel and e.titel != EVENT_TYPES.get(e.typ) %} – {{ e.titel }}{% endif %} · <a href="{{ e.link }}" target="_blank" rel="noopener">Portal öffnen</a></dd>
+  </dl>
+  {% if e.text and e.text|length > 400 %}
+  <details><summary>Volltext anzeigen</summary><div class="text">{{ e.text }}</div></details>
+  {% endif %}
+</article>

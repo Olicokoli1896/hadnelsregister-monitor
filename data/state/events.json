@@ -1,4 +1,55 @@
 {
+ "073c4fb5231870f4": {
+  "aktenzeichen": "340 IN 299/22 (371)",
+  "branchen": [
+   "Elektro"
+  ],
+  "datum": "2026-11-11",
+  "entfernung_km": 41.8,
+  "erfasst_am": "2026-11-23T13:58:28",
+  "firma": "EAG Elektro Anlagenbaugesellschaft mbH",
+  "gericht": "Stendal",
+  "id": "073c4fb5231870f4",
+  "insolvenzgericht": "Magdeburg",
+  "link": "https://neu.insolvenzbekanntmachungen.de/ap/suche.jsf",
+  "ort": "Magdeburg",
+  "quelle": "Insolvenzbekanntmachung",
+  "regionen": [
+   "braunschweig",
+   "halberstadt",
+   "wolfsburg"
+  ],
+  "register": "HRB 15415",
+  "text": "Aktenzeichen 340 IN 299/22 (371), Insolvenzgericht Magdeburg",
+  "titel": "Insolvenzbekanntmachung",
+  "typ": "insolvenz_sonstige"
+ },
+ "18d049e0369c636a": {
+  "branchen": [
+   "Elektro"
+  ],
+  "datum": "2026-10-08",
+  "eintragungsdatum": "",
+  "entfernung_km": 84.0,
+  "erfasst_am": "2026-11-23T13:16:56",
+  "firma": "Elektro-Phase GmbH",
+  "gericht": "Paderborn",
+  "id": "18d049e0369c636a",
+  "land": "Nordrhein-Westfalen",
+  "link": "https://www.handelsregister.de/rp_web/bekanntmachungen/welcome.xhtml",
+  "ort": "Paderborn",
+  "quelle": "Registerbekanntmachung",
+  "rechtsform": "",
+  "regionen": [
+   "hannover",
+   "goettingen"
+  ],
+  "register": "HRB 12648",
+  "text": "",
+  "titel": "Registerbekanntmachung nach dem Umwandlungsgesetz",
+  "typ": "umwandlung",
+  "unterart": ""
+ },
  "1fd9f37085265c77": {
   "branchen": [
    "SHK"
@@ -55,6 +106,29 @@
   "typ": "umwandlung",
   "unterart": "Ausgliederung"
  },
+ "31b6769bfe195ba5": {
+  "aktenzeichen": "46 IN 57/26",
+  "branchen": [
+   "Elektro"
+  ],
+  "datum": "2026-11-11",
+  "entfernung_km": 93.4,
+  "erfasst_am": "2026-11-23T13:40:31",
+  "firma": "Burmester Elektro GmbH",
+  "gericht": "Lüneburg",
+  "id": "31b6769bfe195ba5",
+  "insolvenzgericht": "Lüneburg",
+  "link": "https://neu.insolvenzbekanntmachungen.de/ap/suche.jsf",
+  "ort": "Lüneburg",
+  "quelle": "Insolvenzbekanntmachung",
+  "regionen": [
+   "wolfsburg"
+  ],
+  "register": "HRB 212989",
+  "text": "Aktenzeichen 46 IN 57/26, Insolvenzgericht Lüneburg",
+  "titel": "Insolvenzbekanntmachung",
+  "typ": "insolvenz_eroeffnung"
+ },
  "3464d24633c2eddd": {
   "branchen": [
    "SHK"
@@ -108,6 +182,55 @@
   "typ": "umwandlung",
   "unterart": "Ausgliederung"
  },
+ "406afd32c7464f80": {
+  "branchen": [
+   "Elektro"
+  ],
+  "datum": "2026-09-30",
+  "eintragungsdatum": "",
+  "entfernung_km": 85.3,
+  "erfasst_am": "2026-11-23T13:25:12",
+  "firma": "PaulC - Elektroservice UG (haftungsbeschränkt)",
+  "gericht": "Paderborn",
+  "id": "406afd32c7464f80",
+  "land": "Nordrhein-Westfalen",
+  "link": "https://www.handelsregister.de/rp_web/bekanntmachungen/welcome.xhtml",
+  "ort": "Borchen",
+  "quelle": "Registerbekanntmachung",
+  "rechtsform": "",
+  "regionen": [
+   "goettingen"
+  ],
+  "register": "HRB 15987",
+  "text": "",
+  "titel": "Registerbekanntmachung nach dem Umwandlungsgesetz",
+  "typ": "umwandlung",
+  "unterart": ""
+ },
+ "423308da68a9ccc5": {
+  "aktenzeichen": "10 IN 125/23",
+  "branchen": [
+   "SHK"
+  ],
+  "datum": "2026-11-11",
+  "entfernung_km": 76.2,
+  "erfasst_am": "2026-11-23T13:48:27",
+  "firma": "Dittmann Haustechnik GmbH",
+  "gericht": "Lemgo",
+  "id": "423308da68a9ccc5",
+  "insolvenzgericht": "Detmold",
+  "link": "https://neu.insolvenzbekanntmachungen.de/ap/suche.jsf",
+  "ort": "Detmold",
+  "quelle": "Insolvenzbekanntmachung",
+  "regionen": [
+   "hannover",
+   "goettingen"
+  ],
+  "register": "HRB 10240",
+  "text": "Aktenzeichen 10 IN 125/23, Insolvenzgericht Detmold",
+  "titel": "Insolvenzbekanntmachung",
+  "typ": "insolvenz_entscheidung"
+ },
  "42b57e07df95985f": {
   "branchen": [
    "SHK"
@@ -133,6 +256,154 @@
   "typ": "umwandlung",
   "unterart": "Verschmelzung"
  },
+ "54112baaf377adf5": {
+  "branchen": [
+   "SHK"
+  ],
+  "datum": "2026-10-02",
+  "eintragungsdatum": "",
+  "entfernung_km": 30.6,
+  "erfasst_am": "2026-11-23T13:21:04",
+  "firma": "PV-Hansal Gebäudetechnik GmbH",
+  "gericht": "Kassel",
+  "id": "54112baaf377adf5",
+  "land": "Hessen",
+  "link": "https://www.handelsregister.de/rp_web/bekanntmachungen/welcome.xhtml",
+  "ort": "Immenhausen",
+  "quelle": "Registerbekanntmachung",
+  "rechtsform": "",
+  "regionen": [
+   "goettingen"
+  ],
+  "register": "HRB 20866",
+  "text": "",
+  "titel": "Registerbekanntmachung nach dem Umwandlungsgesetz",
+  "typ": "umwandlung",
+  "unterart": ""
+ },
+ "65d6b5e9aacc3b94": {
+  "branchen": [
+   "SHK"
+  ],
+  "datum": "2026-10-02",
+  "eintragungsdatum": "",
+  "entfernung_km": 30.6,
+  "erfasst_am": "2026-11-23T13:23:14",
+  "firma": "PV-Hansal Gebäudetechnik e.K.",
+  "gericht": "Kassel",
+  "id": "65d6b5e9aacc3b94",
+  "land": "Hessen",
+  "link": "https://www.handelsregister.de/rp_web/bekanntmachungen/welcome.xhtml",
+  "ort": "Immenhausen",
+  "quelle": "Registerbekanntmachung",
+  "rechtsform": "",
+  "regionen": [
+   "goettingen"
+  ],
+  "register": "HRA 18523",
+  "text": "",
+  "titel": "Registerbekanntmachung nach dem Umwandlungsgesetz",
+  "typ": "umwandlung",
+  "unterart": ""
+ },
+ "6dd8a0e1bb1b69a3": {
+  "aktenzeichen": "910 IN 794/16 - 9 -",
+  "branchen": [
+   "Elektro"
+  ],
+  "datum": "2026-11-16",
+  "entfernung_km": 0.0,
+  "erfasst_am": "2026-11-23T13:39:50",
+  "firma": "TB Elektroanlagenbau Vertriebs GmbH",
+  "gericht": "Hannover",
+  "id": "6dd8a0e1bb1b69a3",
+  "insolvenzgericht": "Hannover",
+  "link": "https://neu.insolvenzbekanntmachungen.de/ap/suche.jsf",
+  "ort": "Hannover",
+  "quelle": "Insolvenzbekanntmachung",
+  "regionen": [
+   "hannover",
+   "braunschweig",
+   "goettingen",
+   "wolfsburg"
+  ],
+  "register": "HRB 211326",
+  "text": "Aktenzeichen 910 IN 794/16 - 9 -, Insolvenzgericht Hannover",
+  "titel": "Insolvenzbekanntmachung",
+  "typ": "insolvenz_entscheidung"
+ },
+ "6fb959b21cf4e640": {
+  "aktenzeichen": "2 IN 147/17",
+  "branchen": [
+   "Elektro"
+  ],
+  "datum": "2026-11-17",
+  "entfernung_km": 95.7,
+  "erfasst_am": "2026-11-23T13:57:10",
+  "firma": "HGN Elektro Elz GmbH",
+  "gericht": "Stendal",
+  "id": "6fb959b21cf4e640",
+  "insolvenzgericht": "Dessau-Roßlau",
+  "link": "https://neu.insolvenzbekanntmachungen.de/ap/suche.jsf",
+  "ort": "Coswig (Anhalt)",
+  "quelle": "Insolvenzbekanntmachung",
+  "regionen": [
+   "halberstadt"
+  ],
+  "register": "HRB 10470",
+  "text": "Aktenzeichen 2 IN 147/17, Insolvenzgericht Dessau-Roßlau",
+  "titel": "Insolvenzbekanntmachung",
+  "typ": "insolvenz_sonstige"
+ },
+ "772561bbf70b1638": {
+  "branchen": [
+   "Elektro"
+  ],
+  "datum": "2026-10-08",
+  "eintragungsdatum": "2026-10-08",
+  "entfernung_km": 84.0,
+  "erfasst_am": "2026-11-23T13:14:54",
+  "firma": "Elektro-Phase GmbH",
+  "gericht": "Paderborn",
+  "id": "772561bbf70b1638",
+  "land": "Nordrhein-Westfalen",
+  "link": "https://www.handelsregister.de/rp_web/bekanntmachungen/welcome.xhtml",
+  "ort": "Paderborn",
+  "quelle": "Registerbekanntmachung",
+  "rechtsform": "Gesellschaft mit beschränkter Haftung",
+  "regionen": [
+   "hannover",
+   "goettingen"
+  ],
+  "register": "HRB 12648",
+  "text": "Den Gläubigern der an der Verschmelzung beteiligten Rechtsträger ist, wenn sie binnen sechs Monaten nach dem Tag, an dem die Eintragung der Verschmelzung in das Register des Sitzes desjenigen Rechtsträgers, dessen Gläubiger sie sind, nach § 19 Absatz 3 UmwG als bekanntgemacht gilt, ihren Anspruch nach Grund und Höhe schriftlich anmelden, Sicherheit zu leisten, soweit sie nicht Befriedigung verlangen können. Dieses Recht steht den Gläubigern jedoch nur zu, wenn sie glaubhaft machen, dass durch die Verschmelzung die Erfüllung ihrer Forderung gefährdet wird.",
+  "titel": "Registerbekanntmachung nach dem Umwandlungsgesetz",
+  "typ": "umwandlung",
+  "unterart": "Verschmelzung"
+ },
+ "93f290e6bd23f912": {
+  "aktenzeichen": "10 IN 163/24",
+  "branchen": [
+   "SHK"
+  ],
+  "datum": "2026-11-16",
+  "entfernung_km": 91.9,
+  "erfasst_am": "2026-11-23T13:50:46",
+  "firma": "Construct Bau- und Gebäudetechnik GmbH",
+  "gericht": "Bielefeld",
+  "id": "93f290e6bd23f912",
+  "insolvenzgericht": "Detmold",
+  "link": "https://neu.insolvenzbekanntmachungen.de/ap/suche.jsf",
+  "ort": "Bielefeld",
+  "quelle": "Insolvenzbekanntmachung",
+  "regionen": [
+   "hannover"
+  ],
+  "register": "HRB 45171",
+  "text": "Aktenzeichen 10 IN 163/24, Insolvenzgericht Detmold",
+  "titel": "Insolvenzbekanntmachung",
+  "typ": "insolvenz_entscheidung"
+ },
  "a4fc07e7d1be861d": {
   "branchen": [
    "SHK"
@@ -154,6 +425,33 @@
   ],
   "register": "HRB 13790",
   "text": "Den Gläubigern der an der Verschmelzung beteiligten Rechtsträger ist, wenn sie binnen sechs Monaten nach dem Tag, an dem die Eintragung der Verschmelzung in das Register des Sitzes desjenigen Rechtsträgers, dessen Gläubiger sie sind, nach § 19 Absatz 3 UmwG bekannt gemacht worden ist, ihren Anspruch nach Grund und Höhe schriftlich anmelden, Sicherheit zu leisten, soweit sie nicht Befriedigung verlangen können. Dieses Recht steht den Gläubigern jedoch nur zu, wenn sie glaubhaft machen, dass durch die Verschmelzung die Erfüllung ihrer Forderung gefährdet wird.",
+  "titel": "Registerbekanntmachung nach dem Umwandlungsgesetz",
+  "typ": "umwandlung",
+  "unterart": "Verschmelzung"
+ },
+ "a81078f67751868f": {
+  "branchen": [
+   "SHK"
+  ],
+  "datum": "2026-10-08",
+  "eintragungsdatum": "2026-10-08",
+  "entfernung_km": 51.5,
+  "erfasst_am": "2026-11-23T13:12:52",
+  "firma": "Bio - Box Sanitär & Service GmbH",
+  "gericht": "Stendal",
+  "id": "a81078f67751868f",
+  "land": "Sachsen-Anhalt",
+  "link": "https://www.handelsregister.de/rp_web/bekanntmachungen/welcome.xhtml",
+  "ort": "Magdeburg",
+  "quelle": "Registerbekanntmachung",
+  "rechtsform": "Gesellschaft mit beschränkter Haftung",
+  "regionen": [
+   "braunschweig",
+   "halberstadt",
+   "wolfsburg"
+  ],
+  "register": "HRB 111232",
+  "text": "Den Gläubigern der an der Verschmelzung beteiligten Rechtsträger ist, wenn sie binnen sechs Monaten nach dem Tag, an dem die Eintragung der Verschmelzung nach § 19 Abs. 3 UmwG als bekanntgemacht gilt, ihren Anspruch nach Grund und Höhe schriftlich anmelden, Sicherheit zu leisten, soweit sie nicht Befriedigung verlangen können. Dieses Recht steht ihnen jedoch nur zu, wenn sie glaubhaft machen, dass durch die Verschmelzung die Erfüllung ihrer Forderung gefährdet wird.",
   "titel": "Registerbekanntmachung nach dem Umwandlungsgesetz",
   "typ": "umwandlung",
   "unterart": "Verschmelzung"
@@ -185,5 +483,155 @@
   "titel": "Löschungsankündigung",
   "typ": "loeschungsankuendigung",
   "unterart": ""
+ },
+ "b16f8a9b7f4efb8c": {
+  "aktenzeichen": "177 IN 134/18",
+  "branchen": [
+   "SHK"
+  ],
+  "datum": "2026-11-20",
+  "entfernung_km": 98.3,
+  "erfasst_am": "2026-11-23T14:07:15",
+  "firma": "HTC Haustechnikcenter GmbH",
+  "gericht": "Jena - Handels-",
+  "id": "b16f8a9b7f4efb8c",
+  "insolvenzgericht": "Erfurt",
+  "link": "https://neu.insolvenzbekanntmachungen.de/ap/suche.jsf",
+  "ort": "Erfurt",
+  "quelle": "Insolvenzbekanntmachung",
+  "regionen": [
+   "goettingen"
+  ],
+  "register": "Genossenschafts- und Partnerschaftsregister, HRB 508137",
+  "text": "Aktenzeichen 177 IN 134/18, Insolvenzgericht Erfurt",
+  "titel": "Insolvenzbekanntmachung",
+  "typ": "insolvenz_entscheidung"
+ },
+ "b8abdcf06df9c8ff": {
+  "branchen": [
+   "SHK"
+  ],
+  "datum": "2026-10-14",
+  "eintragungsdatum": "2026-10-14",
+  "entfernung_km": 90.4,
+  "erfasst_am": "2026-11-23T13:10:44",
+  "firma": "Talat Kavakbasi Kälte-Klima-Technik e.K.",
+  "gericht": "Bielefeld",
+  "id": "b8abdcf06df9c8ff",
+  "land": "Nordrhein-Westfalen",
+  "link": "https://www.handelsregister.de/rp_web/bekanntmachungen/welcome.xhtml",
+  "ort": "Bielefeld",
+  "quelle": "Registerbekanntmachung",
+  "rechtsform": "",
+  "regionen": [
+   "hannover"
+  ],
+  "register": "HRA 17622",
+  "text": "Den Gläubigern der an der Ausgliederung beteiligten Rechtsträger ist, wenn sie binnen sechs Monaten nach dem Tag, an dem die Eintragung der Ausgliederung in das Register des Sitzes desjenigen Rechtsträgers, dessen Gläubiger sie sind, nach § 19 Absatz 3 UmwG als bekanntgemacht gilt, ihren Anspruch nach Grund und Höhe schriftlich anmelden, Sicherheit zu leisten, soweit sie nicht Befriedigung verlangen können. Dieses Recht steht den Gläubigern jedoch nur zu, wenn sie glaubhaft machen, dass durch die Ausgliederung die Erfüllung ihrer Forderung gefährdet wird.",
+  "titel": "Registerbekanntmachung nach dem Umwandlungsgesetz",
+  "typ": "umwandlung",
+  "unterart": "Ausgliederung"
+ },
+ "d9c972763d51734b": {
+  "branchen": [
+   "SHK"
+  ],
+  "datum": "2026-10-05",
+  "eintragungsdatum": "",
+  "entfernung_km": 74.7,
+  "erfasst_am": "2026-11-23T13:19:00",
+  "firma": "Kavakbasi Kälte-Klima-Technik GmbH & Co. KG",
+  "gericht": "Lemgo",
+  "id": "d9c972763d51734b",
+  "land": "Nordrhein-Westfalen",
+  "link": "https://www.handelsregister.de/rp_web/bekanntmachungen/welcome.xhtml",
+  "ort": "Bad Salzuflen",
+  "quelle": "Registerbekanntmachung",
+  "rechtsform": "",
+  "regionen": [
+   "hannover"
+  ],
+  "register": "HRA 6593",
+  "text": "",
+  "titel": "Registerbekanntmachung nach dem Umwandlungsgesetz",
+  "typ": "umwandlung",
+  "unterart": ""
+ },
+ "df24ca206bb7ab09": {
+  "aktenzeichen": "273 IN 393/08 a",
+  "branchen": [
+   "Elektro"
+  ],
+  "datum": "2026-11-10",
+  "entfernung_km": 0.0,
+  "erfasst_am": "2026-11-23T13:42:44",
+  "firma": "Janson - Elektrotechnik GmbH",
+  "gericht": "Braunschweig",
+  "id": "df24ca206bb7ab09",
+  "insolvenzgericht": "Braunschweig",
+  "link": "https://neu.insolvenzbekanntmachungen.de/ap/suche.jsf",
+  "ort": "Braunschweig",
+  "quelle": "Insolvenzbekanntmachung",
+  "regionen": [
+   "hannover",
+   "braunschweig",
+   "goettingen",
+   "halberstadt",
+   "wolfsburg"
+  ],
+  "register": "HRB 10046",
+  "text": "Aktenzeichen 273 IN 393/08 a, Insolvenzgericht Braunschweig",
+  "titel": "Insolvenzbekanntmachung",
+  "typ": "insolvenz_entscheidung"
+ },
+ "e789ce70750f611e": {
+  "aktenzeichen": "274 IN 181/21 c",
+  "branchen": [
+   "SHK"
+  ],
+  "datum": "2026-11-10",
+  "entfernung_km": 18.6,
+  "erfasst_am": "2026-11-23T13:44:50",
+  "firma": "Netztec-Heizung UG (haftungsbeschränkt)",
+  "gericht": "Braunschweig",
+  "id": "e789ce70750f611e",
+  "insolvenzgericht": "Braunschweig",
+  "link": "https://neu.insolvenzbekanntmachungen.de/ap/suche.jsf",
+  "ort": "Salzgitter",
+  "quelle": "Insolvenzbekanntmachung",
+  "regionen": [
+   "hannover",
+   "braunschweig",
+   "goettingen",
+   "halberstadt",
+   "wolfsburg"
+  ],
+  "register": "HRB 204448",
+  "text": "Aktenzeichen 274 IN 181/21 c, Insolvenzgericht Braunschweig",
+  "titel": "Insolvenzbekanntmachung",
+  "typ": "insolvenz_entscheidung"
+ },
+ "fa3e3583e6d7bbde": {
+  "aktenzeichen": "2 IN 40/24",
+  "branchen": [
+   "Elektro"
+  ],
+  "datum": "2026-11-11",
+  "entfernung_km": 98.0,
+  "erfasst_am": "2026-11-23T14:00:37",
+  "firma": "WACO Bahn- & Elektroservice GmbH",
+  "gericht": "Stendal",
+  "id": "fa3e3583e6d7bbde",
+  "insolvenzgericht": "Dessau-Roßlau",
+  "link": "https://neu.insolvenzbekanntmachungen.de/ap/suche.jsf",
+  "ort": "Gräfenhainichen",
+  "quelle": "Insolvenzbekanntmachung",
+  "regionen": [
+   "halberstadt"
+  ],
+  "register": "HRB 8575",
+  "text": "Aktenzeichen 2 IN 40/24, Insolvenzgericht Dessau-Roßlau",
+  "titel": "Insolvenzbekanntmachung",
+  "typ": "insolvenz_sonstige"
  }
 }

@@ -104,10 +104,10 @@ insolvenz:
   aufbewahrung_tage: 180
 
 # ---------------------------------------------------------------------------
-# E-Mail-Versand (Zugangsdaten kommen aus Umgebungsvariablen / GitHub Secrets):
-#   SMTP_HOST, SMTP_PORT, SMTP_USER, SMTP_PASSWORD, MAIL_FROM
-# Resend: SMTP_HOST=smtp.resend.com, SMTP_PORT=465, SMTP_USER=resend,
-#         SMTP_PASSWORD=<API-Key re_...>, MAIL_FROM=<Adresse der verifizierten Domain>
+# E-Mail-Versand (Zugangsdaten kommen aus GitHub Secrets, siehe README):
+#   Resend-API: RESEND_API_KEY, MAIL_FROM (leer = onboarding@resend.dev), MAIL_TO
+#   Alternativ SMTP: SMTP_HOST, SMTP_PORT, SMTP_USER, SMTP_PASSWORD, MAIL_FROM
+#   Ohne RESEND_API_KEY und SMTP_HOST wird nichts verschickt.
 # ---------------------------------------------------------------------------
 email:
   aktiv: true

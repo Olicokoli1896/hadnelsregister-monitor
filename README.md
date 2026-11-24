@@ -100,23 +100,62 @@ python -m hr_monitor mail --dry-run               # Mails als Dateien nach out/ 
 
 ### 3. Automatisch über GitHub Actions
 
-1. **E-Mail-Zugang als Secrets hinterlegen** (Repository → Settings → Secrets and
-   variables → Actions): `SMTP_HOST`, `SMTP_PORT` (587 für STARTTLS oder 465 für SSL),
-   `SMTP_USER`, `SMTP_PASSWORD`, `MAIL_FROM`.
-   **Mit [Resend](https://resend.com):** `SMTP_HOST=smtp.resend.com`, `SMTP_PORT=465`,
-   `SMTP_USER=resend`, `SMTP_PASSWORD=<Resend-API-Key, beginnt mit re_>`,
-   `MAIL_FROM=<Adresse auf der in Resend verifizierten Domain>`.
-   **Verteiler je Region** ebenfalls als Secret, mehrere Adressen durch Komma getrennt:
-   `EMPFAENGER_HANNOVER`, `EMPFAENGER_BRAUNSCHWEIG`, `EMPFAENGER_GOETTINGEN`,
-   `EMPFAENGER_HALBERSTADT`, `EMPFAENGER_WOLFSBURG`. Die Empfänger erhalten die Mail in
-   BCC. Für eine Region ohne Empfänger wird nichts verschickt; ihre Einträge bleiben
-   offen, bis ein Verteiler hinterlegt ist. Neue Regionen brauchen zusätzlich einen
-   Eintrag im Workflow (`.github/workflows/update.yml`, Abschnitt `env`).
+1. **E-Mail-Versand über Resend einrichten** (siehe nächster Abschnitt).
 2. **GitHub Pages aktivieren**: Settings → Pages → „Deploy from a branch“, Branch `main`,
    Ordner `/docs`.
 3. Der Workflow `.github/workflows/update.yml` läuft alle zwei Tage um 03:17 UTC (an
    ungeraden Kalendertagen) und lässt sich unter „Actions“ auch manuell starten. Er speichert den Datenstand (`data/state/`) und die
    Website (`docs/`) im Repository.
+
+### 4. E-Mail-Versand über Resend
+
+Die Mails werden über die API von [Resend](https://resend.com) verschickt. Fehlt der
+API-Key, läuft alles andere normal weiter: Der Mailversand wird übersprungen, die Mails
+landen nur als Datei im Lauf, und die Einträge bleiben offen, bis der Versand klappt.
+
+**Schritt 1: Resend-Konto und API-Key**
+
+1. Auf [resend.com](https://resend.com) ein kostenloses Konto anlegen. Die dabei
+   verwendete E-Mail-Adresse ist wichtig (siehe unten).
+2. Im Resend-Dashboard unter **API Keys** → **Create API Key** einen Schlüssel anlegen
+   (Berechtigung „Sending access“ genügt). Er beginnt mit `re_` und wird nur einmal
+   angezeigt.
+
+**Schritt 2: Secrets im Repository hinterlegen**
+
+Im Repository auf GitHub: **Settings** → **Secrets and variables** → **Actions** →
+**New repository secret**.
+
+| Secret | Inhalt | Pflicht |
+|---|---|---|
+| `RESEND_API_KEY` | der API-Key aus Schritt 1 (`re_…`) | ja |
+| `MAIL_TO` | Ihre eigene Adresse, mehrere durch Komma getrennt. Bekommt die Mails aller Regionen. | ja |
+| `MAIL_FROM` | Absender. Leer lassen = `onboarding@resend.dev` | nein |
+| `EMPFAENGER_HANNOVER`, `EMPFAENGER_BRAUNSCHWEIG`, `EMPFAENGER_GOETTINGEN`, `EMPFAENGER_HALBERSTADT`, `EMPFAENGER_WOLFSBURG` | Verteiler je Region, mehrere Adressen durch Komma getrennt | erst mit eigener Domain |
+
+**Ohne eigene Domain (Start):** Solange `MAIL_FROM` leer ist, verschickt das Tool über
+Resends Test-Absender `onboarding@resend.dev`. Resend stellt darüber **nur an die
+E-Mail-Adresse des eigenen Resend-Kontos** zu. Tragen Sie deshalb genau diese Adresse als
+`MAIL_TO` ein. Die regionalen Verteiler werden in diesem Modus nicht beliefert, damit
+Resend die Mail nicht ablehnt.
+
+**Später mit eigener Domain:** Domain in Resend unter **Domains** → **Add Domain**
+hinzufügen und die angezeigten DNS-Einträge (SPF, DKIM) beim Domain-Anbieter eintragen.
+Sobald Resend die Domain als „Verified“ anzeigt, nur das Secret `MAIL_FROM` ändern, z. B.
+auf `Handelsregister-Monitor <monitor@ihre-firma.de>`. Code und Workflow bleiben gleich.
+Ab dann gehen die Mails an `MAIL_TO` und zusätzlich in BCC an die Verteiler
+`EMPFAENGER_<REGION>` (die Empfänger sehen sich gegenseitig nicht). Neue Regionen brauchen
+einen Eintrag im Workflow (`.github/workflows/update.yml`, Abschnitt `env`).
+
+**Schritt 3: Testen**
+
+Unter **Actions** → **Handelsregister-Update** → **Run workflow** einen Lauf starten. Im
+Log steht pro Region „Mail … über Resend gesendet“ oder der Grund, warum nichts verschickt
+wurde. Gibt es keine neuen Einträge, wird keine Mail verschickt. Versendete Mails sehen Sie
+auch im Resend-Dashboard unter **Emails**.
+
+> **Alternativ SMTP:** Ist kein `RESEND_API_KEY` gesetzt, aber `SMTP_HOST`, verschickt das
+> Tool per SMTP (`SMTP_HOST`, `SMTP_PORT`, `SMTP_USER`, `SMTP_PASSWORD`, `MAIL_FROM`).
 
 > **Datenschutz:** Eine GitHub-Pages-Seite ist öffentlich erreichbar (Suchmaschinen werden
 > per `noindex` ausgeschlossen). Die Registerdaten sind zwar öffentlich, Insolvenzdaten

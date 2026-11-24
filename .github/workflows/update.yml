@@ -40,11 +40,17 @@ jobs:
         timeout-minutes: 320
         continue-on-error: true
         env:
+          # Resend (empfohlen). Ohne RESEND_API_KEY wird der Mailversand übersprungen.
+          # MAIL_FROM leer = Test-Absender onboarding@resend.dev (stellt nur an die
+          # Adresse des Resend-Kontos zu). Eigene Domain: nur MAIL_FROM ändern.
+          RESEND_API_KEY: ${{ secrets.RESEND_API_KEY }}
+          MAIL_FROM: ${{ secrets.MAIL_FROM }}
+          MAIL_TO: ${{ secrets.MAIL_TO }}
+          # Alternativ SMTP (wird nur genutzt, wenn RESEND_API_KEY fehlt)
           SMTP_HOST: ${{ secrets.SMTP_HOST }}
           SMTP_PORT: ${{ secrets.SMTP_PORT }}
           SMTP_USER: ${{ secrets.SMTP_USER }}
           SMTP_PASSWORD: ${{ secrets.SMTP_PASSWORD }}
-          MAIL_FROM: ${{ secrets.MAIL_FROM }}
           # Verteiler je Region (mehrere Adressen durch Komma getrennt)
           EMPFAENGER_HANNOVER: ${{ secrets.EMPFAENGER_HANNOVER }}
           EMPFAENGER_BRAUNSCHWEIG: ${{ secrets.EMPFAENGER_BRAUNSCHWEIG }}

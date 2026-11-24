@@ -29,7 +29,7 @@ class MailerTests(unittest.TestCase):
 
     def send(self):
         smtp = mock.MagicMock()
-        env = {"SMTP_HOST": "smtp.example.com", "SMTP_PORT": "587",
+        env = {"RESEND_API_KEY": "", "MAIL_TO": "", "SMTP_HOST": "smtp.example.com", "SMTP_PORT": "587",
                "EMPFAENGER_HANNOVER": "a@example.com, b@example.com"}
         with mock.patch.dict(os.environ, env), mock.patch("smtplib.SMTP", return_value=smtp):
             n = mailer.send(self.cfg, self.store)
@@ -63,6 +63,70 @@ class MailerTests(unittest.TestCase):
     def test_old_events_are_skipped(self):
         self.store.add_event(ev(4, "hannover", datum="2020-01-01"))
         self.assertEqual(mailer.pending_events(self.cfg, self.store, self.cfg.regionen[0]), [])
+
+
+
+class ResendTests(unittest.TestCase):
+    def setUp(self):
+        self.tmp = tempfile.TemporaryDirectory()
+        self.store = Store(Path(self.tmp.name))
+        self.cfg = load_config()
+        self.store.add_event(ev(1, "hannover"))
+
+    def tearDown(self):
+        self.tmp.cleanup()
+
+    def send(self, env, status=200):
+        resp = mock.MagicMock(status_code=status, text="fehler")
+        resp.json.return_value = {"id": "abc"}
+        base = {k: "" for k in ("RESEND_API_KEY", "MAIL_FROM", "MAIL_TO", "SMTP_HOST",
+                                "EMPFAENGER_HANNOVER")}
+        base.update(env)
+        with mock.patch.dict(os.environ, base), \
+                mock.patch("hr_monitor.mailer.requests.post", return_value=resp) as post:
+            n = mailer.send(self.cfg, self.store, outdir=Path(self.tmp.name) / "out")
+        return n, post
+
+    def hannover_pending(self):
+        return len(mailer.pending_events(self.cfg, self.store, self.cfg.regionen[0]))
+
+    def test_without_key_mail_is_skipped(self):
+        n, post = self.send({"MAIL_TO": "ich@example.com"})
+        self.assertEqual(n, 0)
+        post.assert_not_called()
+        self.assertEqual(self.hannover_pending(), 1)
+        self.assertTrue((Path(self.tmp.name) / "out" / "mail-hannover.html").exists())
+
+    def test_test_sender_only_mails_mail_to(self):
+        n, post = self.send({"RESEND_API_KEY": "re_x", "MAIL_TO": "ich@example.com",
+                             "EMPFAENGER_HANNOVER": "kunde@example.com"})
+        self.assertEqual(n, 1)
+        payload = post.call_args.kwargs["json"]
+        self.assertEqual(payload["from"], "onboarding@resend.dev")
+        self.assertEqual(payload["to"], ["ich@example.com"])
+        self.assertNotIn("bcc", payload)
+        self.assertEqual(post.call_args.kwargs["headers"]["Authorization"], "Bearer re_x")
+        self.assertEqual(self.hannover_pending(), 0)
+
+    def test_own_domain_uses_region_recipients_in_bcc(self):
+        n, post = self.send({"RESEND_API_KEY": "re_x", "MAIL_FROM": "Monitor <hr@firma.de>",
+                             "MAIL_TO": "ich@example.com",
+                             "EMPFAENGER_HANNOVER": "a@example.com, b@example.com"})
+        self.assertEqual(n, 1)
+        payload = post.call_args.kwargs["json"]
+        self.assertEqual(payload["from"], "Monitor <hr@firma.de>")
+        self.assertEqual(payload["to"], ["ich@example.com"])
+        self.assertEqual(payload["bcc"], ["a@example.com", "b@example.com"])
+
+    def test_api_error_keeps_events_open(self):
+        n, _ = self.send({"RESEND_API_KEY": "re_x", "MAIL_TO": "ich@example.com"}, status=403)
+        self.assertEqual(n, 0)
+        self.assertEqual(self.hannover_pending(), 1)
+
+    def test_missing_mail_to_with_test_sender(self):
+        n, post = self.send({"RESEND_API_KEY": "re_x"})
+        self.assertEqual(n, 0)
+        post.assert_not_called()
 
 
 if __name__ == "__main__":

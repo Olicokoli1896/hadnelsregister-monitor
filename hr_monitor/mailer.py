@@ -1,4 +1,4 @@
-"""Versand der regionalen E-Mail-Berichte per SMTP."""
+"""Versand der regionalen E-Mail-Berichte über die Resend-API (oder SMTP)."""
 from __future__ import annotations
 
 import logging
@@ -9,11 +9,32 @@ from datetime import date, datetime, timedelta
 from email.message import EmailMessage
 from pathlib import Path
 
+import requests
+
 from .config import Config, Region
 from .site import env
 from .store import Store
 
 log = logging.getLogger(__name__)
+
+RESEND_URL = "https://api.resend.com/emails"
+# Test-Absender von Resend: funktioniert ohne eigene Domain, stellt aber nur an die
+# E-Mail-Adresse des Resend-Kontos zu.
+RESEND_TESTABSENDER = "onboarding@resend.dev"
+
+
+def _split(value: str | None) -> list[str]:
+    return [a.strip() for a in (value or "").replace(";", ",").split(",") if a.strip()]
+
+
+def mail_from() -> str:
+    return (os.environ.get("MAIL_FROM") or "").strip() or RESEND_TESTABSENDER
+
+
+def ist_testabsender(absender: str) -> bool:
+    """True, wenn über die Resend-Testdomain (resend.dev) verschickt wird."""
+    adresse = absender.rsplit("<", 1)[-1].rstrip(">").strip().lower()
+    return adresse.endswith("@resend.dev")
 
 
 def render(cfg: Config, region: Region, events: list[dict]) -> tuple[str, str, str]:
@@ -31,10 +52,39 @@ def render(cfg: Config, region: Region, events: list[dict]) -> tuple[str, str, s
 
 
 def recipients(region: Region) -> list[str]:
-    """Empfänger aus config.yaml plus GitHub-Secret EMPFAENGER_<REGION>."""
+    """Empfänger aus config.yaml, GitHub-Secret EMPFAENGER_<REGION> und MAIL_TO (alle Regionen)."""
     env_name = "EMPFAENGER_" + region.slug.upper().replace("-", "_")
-    extra = [a.strip() for a in os.environ.get(env_name, "").replace(";", ",").split(",") if a.strip()]
-    return list(dict.fromkeys(list(region.empfaenger) + extra))
+    extra = _split(os.environ.get(env_name))
+    return list(dict.fromkeys(list(region.empfaenger) + extra + _split(os.environ.get("MAIL_TO"))))
+
+
+def resend_recipients(region: Region) -> tuple[list[str], list[str]]:
+    """(to, bcc) für den Versand über Resend.
+
+    Mit dem Test-Absender onboarding@resend.dev nimmt Resend nur die Adresse des
+    Resend-Kontos an. Dann geht die Mail ausschließlich an MAIL_TO; die Verteiler der
+    Regionen werden erst mit eigener, verifizierter Domain (MAIL_FROM) beliefert.
+    """
+    mail_to = _split(os.environ.get("MAIL_TO"))
+    if ist_testabsender(mail_from()):
+        return mail_to, []
+    alle = recipients(region)
+    to = mail_to or [mail_from()]
+    return to, [a for a in alle if a not in to]
+
+
+def send_resend(api_key: str, subject: str, html: str, text: str,
+                to: list[str], bcc: list[str]) -> str:
+    """Schickt eine Mail über die Resend-API und gibt die Resend-ID zurück."""
+    payload = {"from": mail_from(), "to": to, "subject": subject, "html": html, "text": text}
+    if bcc:
+        payload["bcc"] = bcc
+    r = requests.post(RESEND_URL, json=payload, timeout=60,
+                      headers={"Authorization": f"Bearer {api_key}",
+                               "User-Agent": "hr-monitor/1.0"})
+    if r.status_code >= 400:
+        raise RuntimeError(f"Resend-API antwortet {r.status_code}: {r.text[:300]}")
+    return r.json().get("id", "")
 
 
 def pending_events(cfg: Config, store: Store, region: Region) -> list[dict]:
@@ -46,49 +96,85 @@ def pending_events(cfg: Config, store: Store, region: Region) -> list[dict]:
             if e["id"] not in sent_ids and (e.get("datum") or e.get("erfasst_am", "")) >= limit]
 
 
+def _ablegen(outdir: Path | None, reg: Region, subject: str, html: str, text: str):
+    if outdir:
+        outdir.mkdir(parents=True, exist_ok=True)
+        (outdir / f"mail-{reg.slug}.html").write_text(html, encoding="utf-8")
+        (outdir / f"mail-{reg.slug}.txt").write_text(f"Betreff: {subject}\n\n{text}", encoding="utf-8")
+
+
 def send(cfg: Config, store: Store, dry_run: bool = False, outdir: Path | None = None) -> int:
     mcfg = cfg.section("email")
     if not mcfg.get("aktiv", True):
         log.info("E-Mail-Versand deaktiviert")
         return 0
     sent_state = store.meta.setdefault("mail_gesendet", {})
+    api_key = (os.environ.get("RESEND_API_KEY") or "").strip()
     host = os.environ.get("SMTP_HOST")
+    if not dry_run:
+        if api_key:
+            log.info("Mailversand über Resend, Absender %s", mail_from())
+            if ist_testabsender(mail_from()):
+                log.info("Test-Absender aktiv: Mails gehen nur an MAIL_TO, "
+                         "Verteiler der Regionen erst mit eigener Domain")
+        elif host:
+            log.info("Mailversand über SMTP (%s)", host)
+        else:
+            log.warning("RESEND_API_KEY nicht gesetzt – Mailversand wird übersprungen, "
+                        "Mails werden nur als Datei abgelegt. Einträge bleiben offen.")
     sent = 0
     for reg in cfg.regionen:
         events = pending_events(cfg, store, reg)
         if not events:
             log.info("Region %s: keine neuen Einträge – keine Mail", reg.name)
             continue
-        empf = recipients(reg)
         subject, html, text = render(cfg, reg, events)
-        if dry_run or not host or not empf:
-            if not dry_run:
-                log.warning("Region %s: %s – Mail wird nur als Datei abgelegt", reg.name,
-                            "SMTP_HOST nicht gesetzt" if not host else "keine Empfänger hinterlegt")
-            if outdir:
-                outdir.mkdir(parents=True, exist_ok=True)
-                (outdir / f"mail-{reg.slug}.html").write_text(html, encoding="utf-8")
-                (outdir / f"mail-{reg.slug}.txt").write_text(f"Betreff: {subject}\n\n{text}", encoding="utf-8")
+        if dry_run or not (api_key or host):
+            _ablegen(outdir, reg, subject, html, text)
             continue
-        msg = EmailMessage()
-        msg["Subject"] = subject
-        msg["From"] = os.environ.get("MAIL_FROM") or os.environ.get("SMTP_USER", "")
-        msg["To"] = msg["From"]  # Empfänger im BCC, damit sie sich gegenseitig nicht sehen
-        msg.set_content(text)
-        msg.add_alternative(html, subtype="html")
-        port = int(os.environ.get("SMTP_PORT") or "587")
-        ctx = ssl.create_default_context()
-        if port == 465:
-            server = smtplib.SMTP_SSL(host, port, context=ctx, timeout=60)
+        if api_key:
+            to, bcc = resend_recipients(reg)
+            if not to:
+                log.warning("Region %s: MAIL_TO nicht gesetzt – keine Mail", reg.name)
+                _ablegen(outdir, reg, subject, html, text)
+                continue
+            try:
+                mail_id = send_resend(api_key, subject, html, text, to, bcc)
+            except Exception as exc:  # Netz- oder API-Fehler: nächste Region, Einträge bleiben offen
+                log.error("Region %s: Versand über Resend fehlgeschlagen: %s", reg.name, exc)
+                continue
+            log.info("Mail %s an %d Empfänger (%s) über Resend gesendet: %d Einträge",
+                     mail_id, len(to) + len(bcc), reg.name, len(events))
         else:
-            server = smtplib.SMTP(host, port, timeout=60)
-            server.starttls(context=ctx)
-        with server:
-            if os.environ.get("SMTP_USER"):
-                server.login(os.environ["SMTP_USER"], os.environ.get("SMTP_PASSWORD", ""))
-            server.send_message(msg, to_addrs=empf)
+            empf = recipients(reg)
+            if not empf:
+                log.warning("Region %s: keine Empfänger hinterlegt – Mail wird nur als Datei abgelegt",
+                            reg.name)
+                _ablegen(outdir, reg, subject, html, text)
+                continue
+            _send_smtp(host, subject, html, text, empf)
+            log.info("Mail an %d Empfänger (%s) gesendet: %d Einträge", len(empf), reg.name, len(events))
         # Erst nach erfolgreichem Versand als verschickt markieren
         sent_state.setdefault(reg.slug, []).extend(e["id"] for e in events)
-        log.info("Mail an %d Empfänger (%s) gesendet: %d Einträge", len(empf), reg.name, len(events))
         sent += 1
     return sent
+
+
+def _send_smtp(host: str, subject: str, html: str, text: str, empf: list[str]):
+    msg = EmailMessage()
+    msg["Subject"] = subject
+    msg["From"] = os.environ.get("MAIL_FROM") or os.environ.get("SMTP_USER", "")
+    msg["To"] = msg["From"]  # Empfänger im BCC, damit sie sich gegenseitig nicht sehen
+    msg.set_content(text)
+    msg.add_alternative(html, subtype="html")
+    port = int(os.environ.get("SMTP_PORT") or "587")
+    ctx = ssl.create_default_context()
+    if port == 465:
+        server = smtplib.SMTP_SSL(host, port, context=ctx, timeout=60)
+    else:
+        server = smtplib.SMTP(host, port, timeout=60)
+        server.starttls(context=ctx)
+    with server:
+        if os.environ.get("SMTP_USER"):
+            server.login(os.environ["SMTP_USER"], os.environ.get("SMTP_PASSWORD", ""))
+        server.send_message(msg, to_addrs=empf)

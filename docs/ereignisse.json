@@ -1,5 +1,30 @@
 [
  {
+  "branchen": [
+   "Elektro"
+  ],
+  "datum": "2026-11-23",
+  "eintragungsdatum": "",
+  "entfernung_km": 75.6,
+  "erfasst_am": "2026-11-24T15:41:19",
+  "firma": "LPE Lichtpartner Elektrogroßhandel GmbH",
+  "gericht": "Bad Hersfeld",
+  "id": "0bf76773aebb8f5f",
+  "land": "Hessen",
+  "link": "https://www.handelsregister.de/rp_web/bekanntmachungen/welcome.xhtml",
+  "ort": "Bad Hersfeld",
+  "quelle": "Registerbekanntmachung",
+  "rechtsform": "Gesellschaft mit beschränkter Haftung",
+  "regionen": [
+   "goettingen"
+  ],
+  "register": "HRB 858",
+  "text": "Das Registergericht beabsichtigt die im Handelsregister eingetragene Gesellschaft von Amts wegen nach § 394 FamFG zu löschen. Die Frist zur Erhebung eines Widerspruchs gegen die beabsichtigte Löschung wird auf 3 Monate festgesetzt.",
+  "titel": "Löschungsankündigung",
+  "typ": "loeschungsankuendigung",
+  "unterart": ""
+ },
+ {
   "aktenzeichen": "177 IN 134/18",
   "branchen": [
    "SHK"

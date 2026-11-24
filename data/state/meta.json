@@ -375,7 +375,8 @@
    "Bad. Harzburg",
    "Langelsheim",
    "Gevensleben",
-   "Brome"
+   "Brome",
+   "Seesen"
   ],
   "Bremen": [
    "Bremerhaven",
@@ -426,7 +427,8 @@
    "Lautertal",
    "Steinbach am Wald, OT Windheim",
    "Redwitz an der Rodach",
-   "Küps"
+   "Küps",
+   "Sonnefeld"
   ],
   "Coesfeld": [
    "Ahaus",
@@ -485,7 +487,8 @@
    "Breuberg",
    "Reichelsheim",
    "Heppenheim (Bergstraße)",
-   "Groß-Gerau"
+   "Groß-Gerau",
+   "Pfungstadt"
   ],
   "Deggendorf": [
    "Geiersthal",
@@ -607,7 +610,8 @@
    "Bollingstedt",
    "Husum",
    "Niebüll",
-   "Fahrdorf"
+   "Fahrdorf",
+   "Wyk auf Föhr"
   ],
   "Frankfurt (Oder)": [
    "Fürstenwalde/Spree",
@@ -789,7 +793,8 @@
    "Gießen",
    "Wartenberg-Landenhausen",
    "Lauterbach",
-   "Mücke-Merlau"
+   "Mücke-Merlau",
+   "Mücke-Ober-Ohmen"
   ],
   "Gotha": [
    "Emleben",
@@ -973,7 +978,8 @@
    "Dingelstädt",
    "Zella-Mehlis",
    "Am Ettersberg",
-   "Niederorschel"
+   "Niederorschel",
+   "Pößneck"
   ],
   "Kaiserslautern": [
    "Kaiserslautern",
@@ -984,7 +990,8 @@
    "Schallodenbach",
    "Otterberg",
    "Weilerbach",
-   "Göllheim"
+   "Göllheim",
+   "Kusel"
   ],
   "Kassel": [
    "Kassel",
@@ -992,7 +999,8 @@
    "Helsa",
    "Ahnatal",
    "Söhrewald",
-   "Immenhausen"
+   "Immenhausen",
+   "Bad Karlshafen"
   ],
   "Kempten (Allgäu)": [
    "Biessenhofen",
@@ -1010,7 +1018,9 @@
    "Dietmannsried",
    "Oberstdorf",
    "Pfronten",
-   "Kempten"
+   "Kempten",
+   "Hindelang",
+   "Durach"
   ],
   "Kiel": [
    "Bad Bramstedt",
@@ -1031,7 +1041,8 @@
    "Melsdorf",
    "Breiholz",
    "Altenholz",
-   "Seedorf"
+   "Seedorf",
+   "Sülfeld"
   ],
   "Kleve": [
    "Bedburg-Hau",
@@ -1116,7 +1127,8 @@
    "Pulheim",
    "Lindlar",
    "Engelskirchen",
-   "Gummersbach"
+   "Gummersbach",
+   "Rösrath"
   ],
   "Königstein": [
    "Kronberg im Taunus",
@@ -1131,7 +1143,8 @@
    "Annweiler am Trifels",
    "Leinsweiler",
    "Rülzheim",
-   "Lingenfeld"
+   "Lingenfeld",
+   "Bad Bergzabern"
   ],
   "Landshut": [
    "Mengkofen",
@@ -1171,7 +1184,8 @@
    "Bad Salzuflen",
    "Blomberg",
    "Schlangen",
-   "Lemgo"
+   "Lemgo",
+   "Extertal"
   ],
   "Limburg": [
    "Limburg",
@@ -1322,7 +1336,9 @@
    "Bühlertal",
    "Niefern-Öschelbronn",
    "Walzbachtal",
-   "Östringen"
+   "Östringen",
+   "Knittlingen",
+   "Pfinztal"
   ],
   "Marburg": [
    "Marburg/Lahn",
@@ -1469,7 +1485,9 @@
    "Peißenberg",
    "Moosburg a.d.Isar",
    "Inning a. Ammersee",
-   "Dachau"
+   "Dachau",
+   "Maisach",
+   "Unterschleißheim"
   ],
   "Münster": [
    "Münster",
@@ -1768,7 +1786,8 @@
    "Dillingen/Saar",
    "Homburg/Saar",
    "Eppelborn",
-   "St Ingbert"
+   "St Ingbert",
+   "Sulzbach/Saar"
   ],
   "Schweinfurt": [
    "Kolitzheim",
@@ -1867,7 +1886,9 @@
    "Ballenstedt",
    "Schönebeck",
    "Bitterfeld-Wolfen",
-   "Querfurt"
+   "Querfurt",
+   "Stendal",
+   "Biederitz"
   ],
   "Stralsund": [
    "Saal",
@@ -2001,7 +2022,8 @@
    "Kusterdingen",
    "Mundelsheim",
    "Tamm",
-   "Erlenbach"
+   "Erlenbach",
+   "Deizisau"
   ],
   "Tostedt": [
    "Neu Wulmstorf",
@@ -2021,7 +2043,9 @@
    "Elmlohe",
    "Wilstedt",
    "Buchholz i. d. N.",
-   "Oldendorf"
+   "Oldendorf",
+   "Beverstedt-Wellen",
+   "Beverstedt"
   ],
   "Traunstein": [
    "Traunstein",
@@ -2053,7 +2077,8 @@
    "Oberneukirchen",
    "Pfaffing",
    "Halfing",
-   "Mühldorf a.Inn"
+   "Mühldorf a.Inn",
+   "Kiefersfelden"
   ],
   "Ulm": [
    "Eislingen",
@@ -2102,7 +2127,10 @@
    "Schelklingen",
    "Wäschenbeuren",
    "Göppingen",
-   "Fronreute"
+   "Fronreute",
+   "Igersheim",
+   "Uttenweiler",
+   "Altshausen"
   ],
   "Walsrode": [
    "Langwedel-Etelsen",
@@ -2192,7 +2220,8 @@
    "Oberpierscheid",
    "Meerfeld",
    "Bengel",
-   "Leiwen/Mosel"
+   "Leiwen/Mosel",
+   "Irrel"
   ],
   "Wuppertal": [
    "Wuppertal",

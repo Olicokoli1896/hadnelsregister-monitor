@@ -23,6 +23,10 @@ concurrency:
 jobs:
   update:
     runs-on: ubuntu-latest
+    env:
+      # Adresse der Website für die Links in den Mails, z. B. https://<projekt>.pages.dev/
+      # (Repo → Settings → Secrets and variables → Actions → Variables). Leer = config.yaml.
+      SITE_URL: ${{ vars.SITE_URL }}
     timeout-minutes: 350
     steps:
       - uses: actions/checkout@v4
@@ -40,17 +44,16 @@ jobs:
         timeout-minutes: 320
         continue-on-error: true
         env:
-          # Resend (empfohlen). Ohne RESEND_API_KEY wird der Mailversand übersprungen.
-          # MAIL_FROM leer = Test-Absender onboarding@resend.dev (stellt nur an die
-          # Adresse des Resend-Kontos zu). Eigene Domain: nur MAIL_FROM ändern.
-          RESEND_API_KEY: ${{ secrets.RESEND_API_KEY }}
-          MAIL_FROM: ${{ secrets.MAIL_FROM }}
-          MAIL_TO: ${{ secrets.MAIL_TO }}
-          # Alternativ SMTP (wird nur genutzt, wenn RESEND_API_KEY fehlt)
-          SMTP_HOST: ${{ secrets.SMTP_HOST }}
-          SMTP_PORT: ${{ secrets.SMTP_PORT }}
+          # Gmail (empfohlen): SMTP_USER = Gmail-Adresse, SMTP_PASSWORD = App-Passwort.
+          # SMTP_HOST/SMTP_PORT leer = smtp.gmail.com:587. MAIL_TO bekommt alle Regionen.
           SMTP_USER: ${{ secrets.SMTP_USER }}
           SMTP_PASSWORD: ${{ secrets.SMTP_PASSWORD }}
+          SMTP_HOST: ${{ secrets.SMTP_HOST }}
+          SMTP_PORT: ${{ secrets.SMTP_PORT }}
+          MAIL_FROM: ${{ secrets.MAIL_FROM }}
+          MAIL_TO: ${{ secrets.MAIL_TO }}
+          # Alternativ Resend: ist RESEND_API_KEY gesetzt, hat Resend Vorrang vor SMTP.
+          RESEND_API_KEY: ${{ secrets.RESEND_API_KEY }}
           # Verteiler je Region (mehrere Adressen durch Komma getrennt)
           EMPFAENGER_HANNOVER: ${{ secrets.EMPFAENGER_HANNOVER }}
           EMPFAENGER_BRAUNSCHWEIG: ${{ secrets.EMPFAENGER_BRAUNSCHWEIG }}

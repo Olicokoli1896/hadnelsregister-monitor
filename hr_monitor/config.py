@@ -1,6 +1,7 @@
 """Laden und Aufbereiten der Konfiguration."""
 from __future__ import annotations
 
+import os
 import re
 import unicodedata
 from dataclasses import dataclass, field
@@ -51,6 +52,11 @@ class Config:
 def load_config(path: str | Path | None = None) -> Config:
     path = Path(path) if path else ROOT / "config.yaml"
     raw = yaml.safe_load(path.read_text(encoding="utf-8")) or {}
+    # Adresse der Website (z. B. Cloudflare Pages) lässt sich ohne Codeänderung über
+    # die GitHub-Variable SITE_URL setzen; sie hat Vorrang vor config.yaml.
+    site_url = (os.environ.get("SITE_URL") or "").strip()
+    if site_url:
+        raw["site_url"] = site_url
     regionen = []
     for r in raw.get("regionen") or []:
         regionen.append(

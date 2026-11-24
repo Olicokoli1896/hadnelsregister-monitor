@@ -100,69 +100,68 @@ python -m hr_monitor mail --dry-run               # Mails als Dateien nach out/ 
 
 ### 3. Automatisch über GitHub Actions
 
-1. **E-Mail-Versand über Resend einrichten** (siehe nächster Abschnitt).
-2. **GitHub Pages aktivieren**: Settings → Pages → „Deploy from a branch“, Branch `main`,
-   Ordner `/docs`.
+1. **E-Mail-Versand über Gmail einrichten** (siehe nächster Abschnitt).
+2. **Website bei Cloudflare Pages veröffentlichen** (siehe Abschnitt 5). GitHub Pages
+   (Settings → Pages → Branch `main`, Ordner `/docs`) funktioniert weiterhin als Alternative.
 3. Der Workflow `.github/workflows/update.yml` läuft alle zwei Tage um 03:17 UTC (an
-   ungeraden Kalendertagen) und lässt sich unter „Actions“ auch manuell starten. Er speichert den Datenstand (`data/state/`) und die
-   Website (`docs/`) im Repository.
+   ungeraden Kalendertagen; 04:17 Uhr MEZ, 05:17 Uhr MESZ) und lässt sich unter „Actions“
+   auch manuell starten. Er speichert den Datenstand (`data/state/`) und die Website
+   (`docs/`) im Repository.
 
-### 4. E-Mail-Versand über Resend
+### 4. E-Mail-Versand über Gmail
 
-Die Mails werden über die API von [Resend](https://resend.com) verschickt. Fehlt der
-API-Key, läuft alles andere normal weiter: Der Mailversand wird übersprungen, die Mails
-landen nur als Datei im Lauf, und die Einträge bleiben offen, bis der Versand klappt.
+Die Mails gehen per SMTP über ein Gmail-Konto raus (`smtp.gmail.com`, Port 587, STARTTLS).
+Fehlen die Zugangsdaten, läuft alles andere normal weiter: Der Mailversand wird
+übersprungen, und die Einträge bleiben offen, bis der Versand klappt.
 
-**Schritt 1: Resend-Konto und API-Key**
+**Schritt 1: App-Passwort erzeugen.** Im Google-Konto die Bestätigung in zwei Schritten
+einschalten (myaccount.google.com → Sicherheit), dann unter
+<https://myaccount.google.com/apppasswords> ein App-Passwort anlegen (16 Zeichen, wird nur
+einmal angezeigt).
 
-1. Auf [resend.com](https://resend.com) ein kostenloses Konto anlegen. Die dabei
-   verwendete E-Mail-Adresse ist wichtig (siehe unten).
-2. Im Resend-Dashboard unter **API Keys** → **Create API Key** einen Schlüssel anlegen
-   (Berechtigung „Sending access“ genügt). Er beginnt mit `re_` und wird nur einmal
-   angezeigt.
-
-**Schritt 2: Secrets im Repository hinterlegen**
-
-Im Repository auf GitHub: **Settings** → **Secrets and variables** → **Actions** →
-**New repository secret**.
+**Schritt 2: Secrets im Repository hinterlegen** (**Settings** → **Secrets and variables**
+→ **Actions** → **New repository secret**):
 
 | Secret | Inhalt | Pflicht |
 |---|---|---|
-| `RESEND_API_KEY` | der API-Key aus Schritt 1 (`re_…`) | ja |
-| `MAIL_TO` | Ihre eigene Adresse, mehrere durch Komma getrennt. Bekommt die Mails aller Regionen. | ja |
-| `MAIL_FROM` | Absender. Leer lassen = `onboarding@resend.dev` | nein |
-| `EMPFAENGER_HANNOVER`, `EMPFAENGER_BRAUNSCHWEIG`, `EMPFAENGER_GOETTINGEN`, `EMPFAENGER_HALBERSTADT`, `EMPFAENGER_WOLFSBURG` | Verteiler je Region, mehrere Adressen durch Komma getrennt | erst mit eigener Domain |
+| `SMTP_USER` | Gmail-Adresse, z. B. `name@gmail.com` | ja |
+| `SMTP_PASSWORD` | das App-Passwort (Leerzeichen werden entfernt) | ja |
+| `MAIL_TO` | Adresse(n), die alle Regionen bekommen, mehrere durch Komma | ja, wenn keine Verteiler |
+| `EMPFAENGER_HANNOVER`, `EMPFAENGER_BRAUNSCHWEIG`, `EMPFAENGER_GOETTINGEN`, `EMPFAENGER_HALBERSTADT`, `EMPFAENGER_WOLFSBURG` | Verteiler je Region, mehrere Adressen durch Komma | nein |
+| `MAIL_FROM` | z. B. `Handelsregister-Monitor <name@gmail.com>`; leer = `SMTP_USER` | nein |
+| `SMTP_HOST`, `SMTP_PORT` | nur für einen anderen Server; leer = `smtp.gmail.com` / `587` | nein |
 
-**Ohne eigene Domain (Start):** Solange `MAIL_FROM` leer ist, verschickt das Tool über
-Resends Test-Absender `onboarding@resend.dev`. Resend stellt darüber **nur an die
-E-Mail-Adresse des eigenen Resend-Kontos** zu. Tragen Sie deshalb genau diese Adresse als
-`MAIL_TO` ein. Die regionalen Verteiler werden in diesem Modus nicht beliefert, damit
-Resend die Mail nicht ablehnt.
+Alle Empfänger stehen im BCC und sehen sich gegenseitig nicht. Ein privates Gmail-Konto
+verschickt rund 500 Empfänger pro Tag.
 
-**Später mit eigener Domain:** Domain in Resend unter **Domains** → **Add Domain**
-hinzufügen und die angezeigten DNS-Einträge (SPF, DKIM) beim Domain-Anbieter eintragen.
-Sobald Resend die Domain als „Verified“ anzeigt, nur das Secret `MAIL_FROM` ändern, z. B.
-auf `Handelsregister-Monitor <monitor@ihre-firma.de>`. Code und Workflow bleiben gleich.
-Ab dann gehen die Mails an `MAIL_TO` und zusätzlich in BCC an die Verteiler
-`EMPFAENGER_<REGION>` (die Empfänger sehen sich gegenseitig nicht). Neue Regionen brauchen
-einen Eintrag im Workflow (`.github/workflows/update.yml`, Abschnitt `env`).
+**Schritt 3: Testen.** Unter **Actions** → **Handelsregister-Update** → **Run workflow**
+einen Lauf starten. Im Log steht pro Region „Mail an … Empfänger gesendet“ oder der Grund,
+warum nichts verschickt wurde. Gibt es keine neuen Einträge, wird keine Mail verschickt.
 
-**Schritt 3: Testen**
+> **Alternativ Resend:** Ist das Secret `RESEND_API_KEY` gesetzt, wird statt Gmail über die
+> Resend-API verschickt (Absender `MAIL_FROM`, leer = `onboarding@resend.dev`, das nur an
+> die Adresse des Resend-Kontos zustellt). Für Gmail dieses Secret also nicht anlegen.
 
-Unter **Actions** → **Handelsregister-Update** → **Run workflow** einen Lauf starten. Im
-Log steht pro Region „Mail … über Resend gesendet“ oder der Grund, warum nichts verschickt
-wurde. Gibt es keine neuen Einträge, wird keine Mail verschickt. Versendete Mails sehen Sie
-auch im Resend-Dashboard unter **Emails**.
+### 5. Website bei Cloudflare Pages
 
-> **Alternativ SMTP:** Ist kein `RESEND_API_KEY` gesetzt, aber `SMTP_HOST`, verschickt das
-> Tool per SMTP (`SMTP_HOST`, `SMTP_PORT`, `SMTP_USER`, `SMTP_PASSWORD`, `MAIL_FROM`).
+1. Im Cloudflare-Dashboard **Workers & Pages** → **Create application** → Tab **Pages** →
+   **Import an existing Git repository** → GitHub verbinden und dieses Repository wählen.
+2. Einstellungen: Production branch `main`, Framework preset *None*, Build command
+   `exit 0`, Build output directory `docs`. **Save and Deploy**.
+3. Die Adresse (`https://<projektname>.pages.dev/`) als GitHub-Variable `SITE_URL`
+   hinterlegen (**Settings** → **Secrets and variables** → **Actions** → Tab **Variables**).
+   Sie steht dann in den Links der Mails; ohne Variable gilt `site_url` aus `config.yaml`.
+
+Nach jedem Lauf pusht der Workflow nach `main`, Cloudflare veröffentlicht die Seite dann
+automatisch neu. Zugangsschutz: Pages-Projekt → **Settings** → **Enable access policy**
+(Cloudflare Access, kostenlos bis 50 Nutzer).
 
 > **Datenschutz:** Eine GitHub-Pages-Seite ist öffentlich erreichbar (Suchmaschinen werden
 > per `noindex` ausgeschlossen). Die Registerdaten sind zwar öffentlich, Insolvenzdaten
 > unterliegen aber Zweckbindung und Löschfristen. Das Tool zeigt daher standardmäßig nur
 > Insolvenzen von Unternehmen mit Registereintrag, entfernt sie nach 180 Tagen und blendet
 > Personennamen aus. Soll die Seite nicht öffentlich sein, eignet sich ein Hosting mit
-> Zugangsschutz (z. B. Netlify/Cloudflare Pages mit Passwort oder ein eigener Webspace mit
+> Zugangsschutz (z. B. Cloudflare Pages mit Cloudflare Access oder ein eigener Webspace mit
 > `.htaccess`) oder `email.modus: text` ganz ohne Website.
 
 ## Aufbau
@@ -178,5 +177,5 @@ hr_monitor/
   store.py                      Datenstand (data/state/*.json)
   site.py, mailer.py            Website und E-Mails
 templates/                      HTML-Vorlagen für Website und Mails
-docs/                           generierte Website (GitHub Pages)
+docs/                           generierte Website (Cloudflare Pages / GitHub Pages)
 ```

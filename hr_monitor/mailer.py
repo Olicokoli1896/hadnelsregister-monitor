@@ -1,4 +1,4 @@
-"""Versand der regionalen E-Mail-Berichte über die Resend-API (oder SMTP)."""
+"""Versand der regionalen E-Mail-Berichte über SMTP (z. B. Gmail) oder die Resend-API."""
 from __future__ import annotations
 
 import logging
@@ -21,6 +21,8 @@ RESEND_URL = "https://api.resend.com/emails"
 # Test-Absender von Resend: funktioniert ohne eigene Domain, stellt aber nur an die
 # E-Mail-Adresse des Resend-Kontos zu.
 RESEND_TESTABSENDER = "onboarding@resend.dev"
+# Ist nur SMTP_USER gesetzt, wird über Gmail verschickt.
+GMAIL_HOST = "smtp.gmail.com"
 
 
 def _split(value: str | None) -> list[str]:
@@ -110,7 +112,7 @@ def send(cfg: Config, store: Store, dry_run: bool = False, outdir: Path | None =
         return 0
     sent_state = store.meta.setdefault("mail_gesendet", {})
     api_key = (os.environ.get("RESEND_API_KEY") or "").strip()
-    host = os.environ.get("SMTP_HOST")
+    host = smtp_host()
     if not dry_run:
         if api_key:
             log.info("Mailversand über Resend, Absender %s", mail_from())
@@ -118,10 +120,11 @@ def send(cfg: Config, store: Store, dry_run: bool = False, outdir: Path | None =
                 log.info("Test-Absender aktiv: Mails gehen nur an MAIL_TO, "
                          "Verteiler der Regionen erst mit eigener Domain")
         elif host:
-            log.info("Mailversand über SMTP (%s)", host)
+            log.info("Mailversand über SMTP (%s), Absender %s", host, smtp_from())
         else:
-            log.warning("RESEND_API_KEY nicht gesetzt – Mailversand wird übersprungen, "
-                        "Mails werden nur als Datei abgelegt. Einträge bleiben offen.")
+            log.warning("Weder SMTP_USER/SMTP_PASSWORD (Gmail) noch RESEND_API_KEY gesetzt – "
+                        "Mailversand wird übersprungen, Mails werden nur als Datei abgelegt. "
+                        "Einträge bleiben offen.")
     sent = 0
     for reg in cfg.regionen:
         events = pending_events(cfg, store, reg)
@@ -152,7 +155,11 @@ def send(cfg: Config, store: Store, dry_run: bool = False, outdir: Path | None =
                             reg.name)
                 _ablegen(outdir, reg, subject, html, text)
                 continue
-            _send_smtp(host, subject, html, text, empf)
+            try:
+                _send_smtp(host, subject, html, text, empf)
+            except Exception as exc:  # z. B. falsches App-Passwort: nächste Region, Einträge bleiben offen
+                log.error("Region %s: Versand über SMTP (%s) fehlgeschlagen: %s", reg.name, host, exc)
+                continue
             log.info("Mail an %d Empfänger (%s) gesendet: %d Einträge", len(empf), reg.name, len(events))
         # Erst nach erfolgreichem Versand als verschickt markieren
         sent_state.setdefault(reg.slug, []).extend(e["id"] for e in events)
@@ -160,10 +167,22 @@ def send(cfg: Config, store: Store, dry_run: bool = False, outdir: Path | None =
     return sent
 
 
+def smtp_host() -> str:
+    """SMTP-Server: SMTP_HOST, sonst smtp.gmail.com, sobald SMTP_USER gesetzt ist."""
+    host = (os.environ.get("SMTP_HOST") or "").strip()
+    if not host and (os.environ.get("SMTP_USER") or "").strip():
+        host = GMAIL_HOST
+    return host
+
+
+def smtp_from() -> str:
+    return (os.environ.get("MAIL_FROM") or "").strip() or (os.environ.get("SMTP_USER") or "").strip()
+
+
 def _send_smtp(host: str, subject: str, html: str, text: str, empf: list[str]):
     msg = EmailMessage()
     msg["Subject"] = subject
-    msg["From"] = os.environ.get("MAIL_FROM") or os.environ.get("SMTP_USER", "")
+    msg["From"] = smtp_from()
     msg["To"] = msg["From"]  # Empfänger im BCC, damit sie sich gegenseitig nicht sehen
     msg.set_content(text)
     msg.add_alternative(html, subtype="html")
@@ -175,6 +194,9 @@ def _send_smtp(host: str, subject: str, html: str, text: str, empf: list[str]):
         server = smtplib.SMTP(host, port, timeout=60)
         server.starttls(context=ctx)
     with server:
-        if os.environ.get("SMTP_USER"):
-            server.login(os.environ["SMTP_USER"], os.environ.get("SMTP_PASSWORD", ""))
+        user = (os.environ.get("SMTP_USER") or "").strip()
+        if user:
+            # Google zeigt App-Passwörter in Vierergruppen an; Leerzeichen entfernen
+            passwort = (os.environ.get("SMTP_PASSWORD") or "").replace(" ", "").strip()
+            server.login(user, passwort)
         server.send_message(msg, to_addrs=empf)

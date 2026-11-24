@@ -1,5 +1,29 @@
 [
  {
+  "aktenzeichen": "11 IN 50/26",
+  "branchen": [
+   "SHK",
+   "Elektro"
+  ],
+  "datum": "2026-11-24",
+  "entfernung_km": 89.3,
+  "erfasst_am": "2026-11-24T15:56:56",
+  "firma": "SYSCON Sager Elektro- und Gebäudetechnik GmbH",
+  "gericht": "Walsrode",
+  "id": "292874925cac50d3",
+  "insolvenzgericht": "Walsrode",
+  "link": "https://neu.insolvenzbekanntmachungen.de/ap/suche.jsf",
+  "ort": "Sottrum",
+  "quelle": "Insolvenzbekanntmachung",
+  "regionen": [
+   "hannover"
+  ],
+  "register": "HRB 208529",
+  "text": "Aktenzeichen 11 IN 50/26, Insolvenzgericht Walsrode",
+  "titel": "Insolvenzbekanntmachung",
+  "typ": "insolvenz_sicherung"
+ },
+ {
   "branchen": [
    "Elektro"
   ],

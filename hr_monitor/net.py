@@ -8,7 +8,7 @@ import requests
 
 log = logging.getLogger(__name__)
 
-USER_AGENT = "Mozilla/5.0 (compatible; HR-Monitor/0.1; +https://github.com/olicokoli/Recherche-Handelsregister)"
+USER_AGENT = "Mozilla/5.0 (compatible; HR-Monitor/0.1; +https://github.com/Olicokoli1896/hadnelsregister-monitor)"
 
 
 class BudgetExceeded(RuntimeError):

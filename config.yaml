@@ -2,9 +2,9 @@
 # Konfiguration des Handelsregister-Monitors (SHK- und Elektrohandwerk)
 # ---------------------------------------------------------------------------
 
-# Öffentliche Adresse der generierten Website (z. B. GitHub Pages).
+# Öffentliche Adresse der generierten Website (Cloudflare Pages; die GitHub-Variable SITE_URL hat Vorrang).
 # Wird für die Links in den E-Mails verwendet.
-site_url: "https://olicokoli.github.io/Recherche-Handelsregister/"
+site_url: "https://handelsregister-monitor.pages.dev/"
 site_title: "Handelsregister-Monitor SHK & Elektro"
 
 # Namen natürlicher Personen (Geschäftsführer, Inhaber) auf Website und in Mails

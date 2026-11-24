@@ -81,5 +81,7 @@ jobs:
             echo "Keine Änderungen"
           else
             git commit -m "Update $(date -u +%Y-%m-%d)"
+            # Falls während des Laufs jemand auf main gepusht hat: erst nachziehen
+            git pull --rebase --no-edit origin "${GITHUB_REF_NAME}" || git rebase --abort
             git push
           fi

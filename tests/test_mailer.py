@@ -192,3 +192,16 @@ class SiteUrlTests(unittest.TestCase):
         self.assertEqual(cfg.get("site_url"), "https://hr.pages.dev/")
         _, html, text = mailer.render(cfg, cfg.regionen[0], [ev(1, "hannover")])
         self.assertIn("https://hr.pages.dev/hannover.html", text + html)
+
+
+class TestmailTests(unittest.TestCase):
+    def test_testmail_goes_to_each_region(self):
+        smtp = mock.MagicMock()
+        env = {"RESEND_API_KEY": "", "SMTP_HOST": "", "SMTP_PORT": "", "MAIL_FROM": "",
+               "SMTP_USER": "monitor@gmail.com", "SMTP_PASSWORD": "x", "MAIL_TO": "chef@example.com",
+               "EMPFAENGER_HANNOVER": "a@example.com; b@example.com"}
+        with mock.patch.dict(os.environ, env), mock.patch("smtplib.SMTP", return_value=smtp):
+            ok, fehler = mailer.send_test(load_config())
+        self.assertEqual((ok, fehler), (5, 0))
+        empfaenger = [c[1]["to_addrs"] for c in smtp.send_message.call_args_list]
+        self.assertIn(["a@example.com", "b@example.com", "chef@example.com"], empfaenger)

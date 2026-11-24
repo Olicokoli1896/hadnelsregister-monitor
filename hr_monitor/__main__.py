@@ -93,9 +93,15 @@ def main(argv=None):
     m = sub.add_parser("mail")
     m.add_argument("--dry-run", action="store_true")
     sub.add_parser("orte")
+    sub.add_parser("testmail", help="kurze Testmail an alle Verteiler, ohne Datenabruf")
     args = p.parse_args(argv)
     logging.basicConfig(level=logging.DEBUG if args.verbose else logging.INFO,
                         format="%(asctime)s %(levelname)s %(name)s: %(message)s")
+    if args.cmd == "testmail":
+        from .config import load_config
+        ok, fehler = mailer.send_test(load_config(args.config))
+        print(f"Testmails gesendet: {ok}, fehlgeschlagen: {fehler}")
+        return 1 if fehler or not ok else 0
     ctx = make_context(args.config)
     if args.cmd == "run":
         cmd_run(args, ctx)

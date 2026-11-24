@@ -200,3 +200,42 @@ def _send_smtp(host: str, subject: str, html: str, text: str, empf: list[str]):
             passwort = (os.environ.get("SMTP_PASSWORD") or "").replace(" ", "").strip()
             server.login(user, passwort)
         server.send_message(msg, to_addrs=empf)
+
+
+def send_test(cfg: Config) -> tuple[int, int]:
+    """Schickt jeder Region eine kurze Testmail an ihren Verteiler (inkl. MAIL_TO).
+
+    Verändert keinen Datenstand. Gibt (gesendet, fehlgeschlagen) zurück.
+    """
+    host = smtp_host()
+    api_key = (os.environ.get("RESEND_API_KEY") or "").strip()
+    if not (host or api_key):
+        raise RuntimeError("Weder SMTP_USER/SMTP_PASSWORD noch RESEND_API_KEY gesetzt")
+    link = cfg.get("site_url", "").rstrip("/")
+    ok = fehler = 0
+    for reg in cfg.regionen:
+        empf = recipients(reg)
+        if not empf:
+            log.warning("Region %s: keine Empfänger hinterlegt – keine Testmail", reg.name)
+            continue
+        subject = f"Testmail Handelsregister-Monitor – Region {reg.name}"
+        text = (f"Hallo,\n\n"
+                f"dies ist eine Testmail des Handelsregister-Monitors für die Region {reg.name}.\n"
+                f"Künftig erhalten Sie an diese Adresse alle zwei Tage eine Mail, sobald es in "
+                f"der Region neue Einträge (Neugründungen, Änderungen, Insolvenzen) im SHK- und "
+                f"Elektrohandwerk gibt.\n\nÜbersicht: {link}/{reg.slug}.html\n\n"
+                f"Diese Mail müssen Sie nicht beantworten.\n")
+        html = "<p>" + text.replace("\n\n", "</p><p>").replace("\n", "<br>") + "</p>"
+        try:
+            if api_key:
+                to, bcc = resend_recipients(reg)
+                send_resend(api_key, subject, html, text, to, bcc)
+            else:
+                _send_smtp(host, subject, html, text, empf)
+        except Exception as exc:
+            log.error("Region %s: Testmail fehlgeschlagen: %s", reg.name, exc)
+            fehler += 1
+            continue
+        log.info("Region %s: Testmail an %d Empfänger gesendet", reg.name, len(empf))
+        ok += 1
+    return ok, fehler

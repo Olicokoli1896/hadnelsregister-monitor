@@ -1,0 +1,37 @@
+name: Testmail
+
+# Schickt jeder Region eine kurze Testmail an ihren Verteiler (EMPFAENGER_<REGION>)
+# und an MAIL_TO. Ruft keine Daten ab und ändert nichts im Repository.
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  testmail:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: pip
+      - run: pip install -r requirements.txt
+      - name: Testmail senden
+        env:
+          SITE_URL: ${{ vars.SITE_URL }}
+          SMTP_USER: ${{ secrets.SMTP_USER }}
+          SMTP_PASSWORD: ${{ secrets.SMTP_PASSWORD }}
+          SMTP_HOST: ${{ secrets.SMTP_HOST }}
+          SMTP_PORT: ${{ secrets.SMTP_PORT }}
+          MAIL_FROM: ${{ secrets.MAIL_FROM }}
+          MAIL_TO: ${{ secrets.MAIL_TO }}
+          RESEND_API_KEY: ${{ secrets.RESEND_API_KEY }}
+          EMPFAENGER_HANNOVER: ${{ secrets.EMPFAENGER_HANNOVER }}
+          EMPFAENGER_BRAUNSCHWEIG: ${{ secrets.EMPFAENGER_BRAUNSCHWEIG }}
+          EMPFAENGER_GOETTINGEN: ${{ secrets.EMPFAENGER_GOETTINGEN }}
+          EMPFAENGER_HALBERSTADT: ${{ secrets.EMPFAENGER_HALBERSTADT }}
+          EMPFAENGER_WOLFSBURG: ${{ secrets.EMPFAENGER_WOLFSBURG }}
+        run: python -m hr_monitor testmail

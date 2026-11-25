@@ -203,7 +203,8 @@
    "Brilon",
    "Medebach",
    "Möhnesee",
-   "Arnsberg"
+   "Arnsberg",
+   "Schmallenberg"
   ],
   "Aschaffenburg": [
    "Alzenau",
@@ -540,7 +541,9 @@
    "Riesa",
    "Heidenau",
    "Klipphausen",
-   "Ebersbach"
+   "Ebersbach",
+   "Seifhennersdorf",
+   "Großröhrsdorf"
   ],
   "Duisburg": [
    "Duisburg",
@@ -611,7 +614,8 @@
    "Husum",
    "Niebüll",
    "Fahrdorf",
-   "Wyk auf Föhr"
+   "Wyk auf Föhr",
+   "Dagebüll"
   ],
   "Frankfurt (Oder)": [
    "Fürstenwalde/Spree",
@@ -738,7 +742,8 @@
    "Homberg (Efze)",
    "Edermünde-Besse",
    "Malsfeld",
-   "Niedenstein"
+   "Niedenstein",
+   "Neuental"
   ],
   "Fulda": [
    "Fulda",
@@ -887,7 +892,8 @@
    "Wittingen-Knesebeck",
    "Elze",
    "Rötgesbüttel",
-   "Fürstenberg"
+   "Fürstenberg",
+   "Bad Salzdetfurth"
   ],
   "Hof": [
    "Oberkotzau",
@@ -1177,7 +1183,8 @@
    "Oschatz",
    "Taucha",
    "Delitzsch",
-   "Grimma"
+   "Grimma",
+   "Rackwitz"
   ],
   "Lemgo": [
    "Detmold",
@@ -1216,7 +1223,10 @@
    "Grünstadt",
    "Dackenheim",
    "Mutterstadt",
-   "Dannstadt-Schauernheim"
+   "Dannstadt-Schauernheim",
+   "Ludwigshafen-Maudach",
+   "Altrip",
+   "Birkenheide"
   ],
   "Lübeck": [
    "Lübeck",
@@ -1389,7 +1399,8 @@
    "Bad Hönningen",
    "Vettelschoß",
    "Kirchen",
-   "Niederelbert"
+   "Niederelbert",
+   "Hattert"
   ],
   "Mönchengladbach": [
    "Viersen",
@@ -1649,7 +1660,9 @@
    "Ostercappeln-Venne",
    "Haselünne",
    "Dissen a.T.W.",
-   "Meppen"
+   "Meppen",
+   "Hasbergen",
+   "Haren"
   ],
   "Paderborn": [
    "Lippstadt",
@@ -1793,7 +1806,8 @@
    "Kolitzheim",
    "Fuchsstadt",
    "Bastheim",
-   "Bad Kissingen"
+   "Bad Kissingen",
+   "Hammelburg"
   ],
   "Schwerin": [
    "Cambs",
@@ -2169,7 +2183,8 @@
    "Weiden i.d.OPf.",
    "Weiden in der Oberpfalz",
    "Kemnath",
-   "Altenstadt a.d.Waldnaab"
+   "Altenstadt a.d.Waldnaab",
+   "Fuchsmühl"
   ],
   "Wetzlar": [
    "Wetzlar-Hermannstein",
@@ -2230,7 +2245,8 @@
    "Haan",
    "Mettmann",
    "Remscheid",
-   "Wülfrath"
+   "Wülfrath",
+   "Erkrath"
   ],
   "Würzburg": [
    "Marktheidenfeld",
@@ -2454,7 +2470,96 @@
   "Stendal|Elektro*|HRB|8|Merseburg",
   "Stendal|Elektro*|HRB|8|Möser",
   "Stendal|Elektro*|HRB|8|Mücheln (Geiseltal)",
-  "Stendal|Elektro*|HRB|8|Querfurt"
+  "Stendal|Elektro*|HRB|8|Querfurt",
+  "Stendal|Elektro*|HRB|8|Salzwedel",
+  "Stendal|Elektro*|HRB|8|Sangerhausen",
+  "Stendal|Elektro*|HRB|8|Seehausen",
+  "Stendal|Elektro*|HRB|8|Staßfurt",
+  "Stendal|Elektro*|HRB|8|Stendal",
+  "Stendal|Elektro*|HRB|8|Teutschenthal OT Zscherben",
+  "Stendal|Elektro*|HRB|8|Weißenfels",
+  "Stendal|Elektro*|HRB|8|Wolfen",
+  "Stendal|Elektro*|HRB|1|",
+  "Stendal|Elektro*|HRB|16|",
+  "Stendal|Sanitär*|HRA||",
+  "Stendal|Sanitär*|HRB|8|Allstedt OT Mittelhausen",
+  "Stendal|Sanitär*|HRB|8|Alsleben",
+  "Stendal|Sanitär*|HRB|8|Ballenstedt",
+  "Stendal|Sanitär*|HRB|8|Barleben",
+  "Stendal|Sanitär*|HRB|8|Biederitz",
+  "Stendal|Sanitär*|HRB|8|Bitterfeld",
+  "Stendal|Sanitär*|HRB|8|Bitterfeld-Wolfen",
+  "Stendal|Sanitär*|HRB|8|Dessau-Roßlau",
+  "Stendal|Sanitär*|HRB|8|Freyburg (Unstrut)",
+  "Stendal|Sanitär*|HRB|8|Halberstadt",
+  "Stendal|Sanitär*|HRB|8|Haldensleben",
+  "Stendal|Sanitär*|HRB|8|Halle",
+  "Stendal|Sanitär*|HRB|8|Halle (Saale)",
+  "Stendal|Sanitär*|HRB|8|Halle/Saale",
+  "Stendal|Sanitär*|HRB|8|Ilsenburg (Harz)",
+  "Stendal|Sanitär*|HRB|8|Landsberg",
+  "Stendal|Sanitär*|HRB|8|Leuna",
+  "Stendal|Sanitär*|HRB|8|Lutherstadt Eisleben",
+  "Stendal|Sanitär*|HRB|8|Magdeburg",
+  "Stendal|Sanitär*|HRB|8|Merseburg",
+  "Stendal|Sanitär*|HRB|8|Möser",
+  "Stendal|Sanitär*|HRB|8|Mücheln (Geiseltal)",
+  "Stendal|Sanitär*|HRB|8|Querfurt",
+  "Stendal|Sanitär*|HRB|8|Salzwedel",
+  "Stendal|Sanitär*|HRB|8|Sangerhausen",
+  "Stendal|Sanitär*|HRB|8|Seehausen",
+  "Stendal|Sanitär*|HRB|8|Staßfurt",
+  "Stendal|Sanitär*|HRB|8|Stendal",
+  "Tostedt|Elektro*|||",
+  "Tostedt|Sanitär*|||",
+  "Tostedt|Heizung*|||",
+  "Tostedt|Haustechnik*|||",
+  "Tostedt|Gebäudetechnik*|||",
+  "Tostedt|Klima* Photovoltaik* Solar* Installation* Energietechnik*|||",
+  "Walsrode|Elektro*|||",
+  "Walsrode|Sanitär*|||",
+  "Walsrode|Heizung*|||",
+  "Walsrode|Haustechnik*|||",
+  "Walsrode|Gebäudetechnik*|||",
+  "Walsrode|Klima*|||",
+  "Walsrode|Photovoltaik*|||",
+  "Walsrode|Solar*|||",
+  "Walsrode|Installation*|||",
+  "Walsrode|Energietechnik*|||",
+  "Arnsberg|Elektro*|||",
+  "Arnsberg|Sanitär*|||",
+  "Arnsberg|Heizung*|||",
+  "Arnsberg|Haustechnik*|||",
+  "Arnsberg|Gebäudetechnik*|||",
+  "Arnsberg|Klima* Photovoltaik* Solar* Installation* Energietechnik*|||",
+  "Bad Hersfeld|Elektro* Sanitär* Heizung* Haustechnik* Gebäudetechnik*|||",
+  "Bad Hersfeld|Klima* Photovoltaik* Solar* Installation* Energietechnik*|||",
+  "Eschwege|Elektro* Sanitär* Heizung* Haustechnik* Gebäudetechnik*|||",
+  "Eschwege|Klima* Photovoltaik* Solar* Installation* Energietechnik*|||",
+  "Fritzlar|Elektro* Sanitär* Heizung* Haustechnik* Gebäudetechnik*|||",
+  "Fritzlar|Klima* Photovoltaik* Solar* Installation* Energietechnik*|||",
+  "Fulda|Elektro* Sanitär* Heizung* Haustechnik* Gebäudetechnik*|||",
+  "Fulda|Klima* Photovoltaik* Solar* Installation* Energietechnik*|||",
+  "Gießen|Elektro* Sanitär* Heizung* Haustechnik* Gebäudetechnik*|||",
+  "Gießen|Klima* Photovoltaik* Solar* Installation* Energietechnik*|||",
+  "Gotha|Elektro* Sanitär* Heizung* Haustechnik* Gebäudetechnik*|||",
+  "Gotha|Klima* Photovoltaik* Solar* Installation* Energietechnik*|||",
+  "Jena|Elektro*|HRA||",
+  "Jena|Elektro*|HRB|8|Am Etterberg",
+  "Jena|Elektro*|HRB|8|Am Ettersberg",
+  "Jena|Elektro*|HRB|8|Bad Langensalza",
+  "Jena|Elektro*|HRB|8|Bad Lobenstein",
+  "Jena|Elektro*|HRB|8|Bad Salzungen",
+  "Jena|Elektro*|HRB|8|Dingelstädt",
+  "Jena|Elektro*|HRB|8|Ebeleben",
+  "Jena|Elektro*|HRB|8|Eisenach",
+  "Jena|Elektro*|HRB|8|Floh-Seligenthal",
+  "Jena|Elektro*|HRB|8|Gebesee",
+  "Jena|Elektro*|HRB|8|Gotha",
+  "Jena|Elektro*|HRB|8|Kölleda",
+  "Jena|Elektro*|HRB|8|Leinefelde-Worbis",
+  "Jena|Elektro*|HRB|8|Niederorschel",
+  "Jena|Elektro*|HRB|8|Nordhausen"
  ],
- "suche_position": 15
+ "suche_position": 25
 }

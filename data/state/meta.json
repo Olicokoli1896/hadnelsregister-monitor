@@ -190,7 +190,8 @@
    "Rothenburg ob der Tauber",
    "Rothenburg",
    "Gunzenhausen",
-   "Neuendettelsau"
+   "Neuendettelsau",
+   "Schnelldorf, Ortsteil Unterampfrach"
   ],
   "Arnsberg": [
    "Bestwig",
@@ -251,7 +252,9 @@
    "Höchstädt a.d. Donau",
    "Wehringen",
    "Gundelfingen a.d.Donau",
-   "Asbach-Bäumenheim"
+   "Asbach-Bäumenheim",
+   "Fischach",
+   "Lauingen"
   ],
   "Aurich": [
    "Leer",
@@ -267,7 +270,8 @@
    "Westerholt",
    "Weener",
    "Wiesmoor.",
-   "Esens"
+   "Esens",
+   "Hesel"
   ],
   "Bad Hersfeld": [
    "Bad Hersfeld",
@@ -288,7 +292,8 @@
    "Kirn/Nahe",
    "Idar-Oberstein",
    "Simmern",
-   "Rheinböllen"
+   "Rheinböllen",
+   "Simmern/Hunsrück"
   ],
   "Bad Oeynhausen": [
    "Herford",
@@ -412,7 +417,8 @@
    "Oelsnitz/Vogtl.",
    "Breitenbrunn/Erzgeb.",
    "Mittweida",
-   "Weißenborn/Erzgeb."
+   "Weißenborn/Erzgeb.",
+   "Zwickau"
   ],
   "Coburg": [
    "Bad Staffelstein",
@@ -489,7 +495,13 @@
    "Reichelsheim",
    "Heppenheim (Bergstraße)",
    "Groß-Gerau",
-   "Pfungstadt"
+   "Pfungstadt",
+   "Lautertal (Odenwald)",
+   "Fürth",
+   "Fürth/Odw.",
+   "Roßdorf",
+   "Erbach",
+   "Malchen"
   ],
   "Deggendorf": [
    "Geiersthal",
@@ -502,7 +514,8 @@
    "Aholming",
    "Winzer",
    "Hengersberg",
-   "Metten"
+   "Metten",
+   "Regen"
   ],
   "Dortmund": [
    "Selm",
@@ -543,7 +556,9 @@
    "Klipphausen",
    "Ebersbach",
    "Seifhennersdorf",
-   "Großröhrsdorf"
+   "Großröhrsdorf",
+   "Nebelschütz",
+   "Priestewitz"
   ],
   "Duisburg": [
    "Duisburg",
@@ -580,7 +595,8 @@
    "Eschwege",
    "Wanfried",
    "Hessisch Lichtenau",
-   "Witzenhausen"
+   "Witzenhausen",
+   "Großalmerode-Laudenbach"
   ],
   "Essen": [
    "Essen",
@@ -649,7 +665,8 @@
    "Berkenbrück",
    "Brieskow-Finkenheerd",
    "Panketal",
-   "Müllrose"
+   "Müllrose",
+   "Küstriner Vorland"
   ],
   "Frankfurt am Main": [
    "Frankfurt am Main",
@@ -718,7 +735,12 @@
    "Engen",
    "Bonndorf im Schwarzwald",
    "Grenzach-Wyhlen",
-   "Kirchzarten"
+   "Kirchzarten",
+   "ELzach",
+   "Elzach",
+   "Markdorf",
+   "Titisee-Neustadt",
+   "Durbach"
   ],
   "Friedberg": [
    "Friedberg (Hessen)",
@@ -743,7 +765,9 @@
    "Edermünde-Besse",
    "Malsfeld",
    "Niedenstein",
-   "Neuental"
+   "Neuental",
+   "Melsungen",
+   "Fritzlar"
   ],
   "Fulda": [
    "Fulda",
@@ -813,7 +837,8 @@
    "Staufenberg",
    "Hann. Münden",
    "Herzberg am Harz",
-   "Einbeck"
+   "Einbeck",
+   "Uslar"
   ],
   "Gütersloh": [
    "Gütersloh",
@@ -893,7 +918,8 @@
    "Elze",
    "Rötgesbüttel",
    "Fürstenberg",
-   "Bad Salzdetfurth"
+   "Bad Salzdetfurth",
+   "Derental"
   ],
   "Hof": [
    "Oberkotzau",
@@ -917,7 +943,8 @@
    "Neuburg a.d.Donau",
    "Karlskron",
    "Schrobenhausen",
-   "Jetzendorf"
+   "Jetzendorf",
+   "Großmehring"
   ],
   "Iserlohn": [
    "Herscheid",
@@ -985,7 +1012,8 @@
    "Zella-Mehlis",
    "Am Ettersberg",
    "Niederorschel",
-   "Pößneck"
+   "Pößneck",
+   "Nobitz"
   ],
   "Kaiserslautern": [
    "Kaiserslautern",
@@ -1097,7 +1125,8 @@
    "Gemmerich",
    "Oberwesel",
    "Miehlen",
-   "Glees"
+   "Glees",
+   "Polch"
   ],
   "Korbach": [
    "Bad Arolsen",
@@ -1134,7 +1163,8 @@
    "Lindlar",
    "Engelskirchen",
    "Gummersbach",
-   "Rösrath"
+   "Rösrath",
+   "Elsdorf"
   ],
   "Königstein": [
    "Kronberg im Taunus",
@@ -1282,7 +1312,8 @@
    "Wienhausen",
    "Ebstorf",
    "Barum",
-   "Dannenberg"
+   "Dannenberg",
+   "Lüchow"
   ],
   "Mainz": [
    "Mainz",
@@ -1296,7 +1327,8 @@
    "Weiler",
    "Wendelsheim",
    "Osthofen",
-   "Alzey"
+   "Alzey",
+   "Sprendlingen"
   ],
   "Mannheim": [
    "Mannheim",
@@ -1348,7 +1380,8 @@
    "Walzbachtal",
    "Östringen",
    "Knittlingen",
-   "Pfinztal"
+   "Pfinztal",
+   "Muggensturm"
   ],
   "Marburg": [
    "Marburg/Lahn",
@@ -1533,7 +1566,9 @@
    "Schwedt/Oder OT Vierraden",
    "Boitzenburger Land",
    "Prenzlau",
-   "Gemeinde Fehrbellin OT Manker"
+   "Gemeinde Fehrbellin OT Manker",
+   "Mühlenbeck",
+   "Angermünde"
   ],
   "Neuss": [
    "41352 Korschenbroich",
@@ -1624,7 +1659,8 @@
    "Hude",
    "Oythe",
    "Lastrup",
-   "Ganderkesee"
+   "Ganderkesee",
+   "Westerstede"
   ],
   "Osnabrück": [
    "Melle",
@@ -1662,7 +1698,8 @@
    "Dissen a.T.W.",
    "Meppen",
    "Hasbergen",
-   "Haren"
+   "Haren",
+   "Bissendorf"
   ],
   "Paderborn": [
    "Lippstadt",
@@ -1684,7 +1721,9 @@
   "Passau": [
    "Passau",
    "Pocking",
-   "Aldersbach"
+   "Aldersbach",
+   "Ringelai",
+   "Windorf"
   ],
   "Pinneberg": [
    "Elmshorn",
@@ -1728,7 +1767,8 @@
    "Wiesenburg/Mark",
    "Mühlenberge",
    "Jüterbog",
-   "Mahlow"
+   "Mahlow",
+   "Schönwalde-Glien"
   ],
   "Recklinghausen": [
    "Herten",
@@ -1800,7 +1840,8 @@
    "Homburg/Saar",
    "Eppelborn",
    "St Ingbert",
-   "Sulzbach/Saar"
+   "Sulzbach/Saar",
+   "Bous"
   ],
   "Schweinfurt": [
    "Kolitzheim",
@@ -1865,7 +1906,8 @@
    "Recke",
    "Hörstel",
    "Emsdetten",
-   "Lotte"
+   "Lotte",
+   "Altenberge"
   ],
   "Stendal": [
    "Lutherstadt Eisleben",
@@ -1902,7 +1944,8 @@
    "Bitterfeld-Wolfen",
    "Querfurt",
    "Stendal",
-   "Biederitz"
+   "Biederitz",
+   "Naumburg (Saale)"
   ],
   "Stralsund": [
    "Saal",
@@ -1920,7 +1963,8 @@
    "Göhren",
    "Ribnitz-Damgarten",
    "Lubmin",
-   "Binz"
+   "Binz",
+   "Putbus"
   ],
   "Straubing": [
    "Straubing",
@@ -2037,7 +2081,10 @@
    "Mundelsheim",
    "Tamm",
    "Erlenbach",
-   "Deizisau"
+   "Deizisau",
+   "Oberboihingen",
+   "Steinenbronn",
+   "Altensteig"
   ],
   "Tostedt": [
    "Neu Wulmstorf",
@@ -2092,7 +2139,9 @@
    "Pfaffing",
    "Halfing",
    "Mühldorf a.Inn",
-   "Kiefersfelden"
+   "Kiefersfelden",
+   "Oberaudorf",
+   "Anger"
   ],
   "Ulm": [
    "Eislingen",
@@ -2144,7 +2193,8 @@
    "Fronreute",
    "Igersheim",
    "Uttenweiler",
-   "Altshausen"
+   "Altshausen",
+   "Essingen"
   ],
   "Walsrode": [
    "Langwedel-Etelsen",
@@ -2236,7 +2286,8 @@
    "Meerfeld",
    "Bengel",
    "Leiwen/Mosel",
-   "Irrel"
+   "Irrel",
+   "Hinzert-Pölert"
   ],
   "Wuppertal": [
    "Wuppertal",
@@ -2257,7 +2308,9 @@
    "Marktbreit",
    "Estenfeld",
    "Wiesthal",
-   "Schwarzach a. Main"
+   "Schwarzach a. Main",
+   "Triefenstein",
+   "Wiesenbronn"
   ],
   "Zweibrücken": [
    "Pirmasens",
@@ -2283,7 +2336,8 @@
    "423308da68a9ccc5",
    "e789ce70750f611e",
    "df24ca206bb7ab09",
-   "42b57e07df95985f"
+   "42b57e07df95985f",
+   "8fe9a4307bcc67a0"
   ],
   "halberstadt": [
    "6fb959b21cf4e640",
@@ -2299,7 +2353,8 @@
    "423308da68a9ccc5",
    "e789ce70750f611e",
    "df24ca206bb7ab09",
-   "3a702a048ea24089"
+   "3a702a048ea24089",
+   "8fe9a4307bcc67a0"
   ],
   "wolfsburg": [
    "6dd8a0e1bb1b69a3",
@@ -2559,7 +2614,63 @@
   "Jena|Elektro*|HRB|8|Kölleda",
   "Jena|Elektro*|HRB|8|Leinefelde-Worbis",
   "Jena|Elektro*|HRB|8|Niederorschel",
-  "Jena|Elektro*|HRB|8|Nordhausen"
+  "Jena|Elektro*|HRB|8|Nordhausen",
+  "Jena|Elektro*|HRB|8|Ohrdruf",
+  "Jena|Elektro*|HRB|8|Tüttleben",
+  "Jena|Elektro*|HRB|8|Werther",
+  "Jena|Elektro*|HRB|8|Wutha-Farnroda",
+  "Jena|Elektro*|HRB|1|",
+  "Jena|Elektro*|HRB|16|",
+  "Jena|Sanitär*|HRA||",
+  "Jena|Sanitär*|HRB|8|Am Etterberg",
+  "Jena|Sanitär*|HRB|8|Am Ettersberg",
+  "Jena|Sanitär*|HRB|8|Bad Langensalza",
+  "Jena|Sanitär*|HRB|8|Bad Lobenstein",
+  "Jena|Sanitär*|HRB|8|Bad Salzungen",
+  "Jena|Sanitär*|HRB|8|Dingelstädt",
+  "Jena|Sanitär*|HRB|8|Ebeleben",
+  "Jena|Sanitär*|HRB|8|Eisenach",
+  "Jena|Sanitär*|HRB|8|Floh-Seligenthal",
+  "Jena|Sanitär*|HRB|8|Gebesee",
+  "Jena|Sanitär*|HRB|8|Gotha",
+  "Jena|Sanitär*|HRB|8|Kölleda",
+  "Korbach|Elektro* Sanitär* Heizung* Haustechnik* Gebäudetechnik*|||",
+  "Korbach|Klima* Photovoltaik* Solar* Installation* Energietechnik*|||",
+  "Marburg|Elektro* Sanitär* Heizung* Haustechnik* Gebäudetechnik*|||",
+  "Marburg|Klima* Photovoltaik* Solar* Installation* Energietechnik*|||",
+  "Leipzig|Elektro*|HRA||",
+  "Leipzig|Elektro*|HRB|8|Delitzsch",
+  "Leipzig|Elektro*|HRB|8|Schkeuditz",
+  "Leipzig|Elektro*|HRB|1|",
+  "Leipzig|Elektro*|HRB|16|",
+  "Leipzig|Sanitär*|||",
+  "Leipzig|Heizung*|||",
+  "Leipzig|Haustechnik*|||",
+  "Leipzig|Gebäudetechnik*|||",
+  "Leipzig|Klima*|||",
+  "Leipzig|Photovoltaik*|||",
+  "Leipzig|Solar*|||",
+  "Leipzig|Installation*|||",
+  "Leipzig|Energietechnik*|||",
+  "Potsdam|Elektro*|||",
+  "Potsdam|Sanitär*|||",
+  "Potsdam|Heizung*|||",
+  "Potsdam|Haustechnik*|||",
+  "Potsdam|Gebäudetechnik*|||",
+  "Potsdam|Klima*|||",
+  "Potsdam|Photovoltaik*|||",
+  "Potsdam|Solar*|||",
+  "Potsdam|Installation*|||",
+  "Potsdam|Energietechnik*|||",
+  "Lübeck|Elektro*|HRA||",
+  "Lübeck|Elektro*|HRB||",
+  "Lübeck|Sanitär*|||",
+  "Lübeck|Heizung*|||",
+  "Lübeck|Haustechnik*|||",
+  "Lübeck|Gebäudetechnik*|||",
+  "Lübeck|Klima* Photovoltaik* Solar* Installation* Energietechnik*|||",
+  "Neuruppin|Elektro* Sanitär* Heizung* Haustechnik* Gebäudetechnik*|||",
+  "Neuruppin|Klima* Photovoltaik* Solar* Installation* Energietechnik*|||"
  ],
- "suche_position": 25
+ "suche_position": 6
 }

@@ -430,6 +430,44 @@
   "typ": "umwandlung",
   "unterart": "Verschmelzung"
  },
+ "8fe9a4307bcc67a0": {
+  "anschrift_ort": "Schloß Holte-Stukenbrock",
+  "anzahl_eintragungen": "6",
+  "branchen": [
+   "SHK"
+  ],
+  "datum": "2026-11-25",
+  "entfernung_km": 92.8,
+  "erfasst_am": "2026-11-27T08:03:25",
+  "firma": "S. Vondey Haustechnik GmbH",
+  "gegenstand": "Anlage und Wartung von Heizungsanlagen.",
+  "gericht": "Bielefeld",
+  "historie": [
+   {
+    "firma": "Stief & Vondey GmbH Heizungsbau",
+    "sitz": "Schloß Holte-Stukenbrock"
+   }
+  ],
+  "id": "8fe9a4307bcc67a0",
+  "kapital": "50.000,00 EUR",
+  "land": "Nordrhein-Westfalen",
+  "letzte_eintragung": "2026-11-25",
+  "link": "https://www.handelsregister.de/rp_web/erweitertesuche/welcome.xhtml",
+  "ort": "Schloß Holte-Stukenbrock",
+  "plz": "33758",
+  "quelle": "Unternehmenssuche",
+  "regionen": [
+   "hannover",
+   "goettingen"
+  ],
+  "register": "HRB 34848",
+  "satzungsdatum": "1994-02-23",
+  "status": "aktuell",
+  "strasse": "Oestervenn 22 a",
+  "text": "",
+  "titel": "Neu im Register (Bereich)",
+  "typ": "neueintragung"
+ },
  "93f290e6bd23f912": {
   "aktenzeichen": "10 IN 163/24",
   "branchen": [
